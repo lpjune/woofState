@@ -20,9 +20,9 @@ class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
-        val mRecyclerView = rootView.findViewById(R.id.executive_recycler_view) as RecyclerView // Add this
-        mRecyclerView.layoutManager = GridLayoutManager(activity, 2)
-        mRecyclerView.adapter = ProfileRecyclerAdapter()
+//        val mRecyclerView = rootView.findViewById(R.id.profile_recycler_view) as RecyclerView // Add this
+//        mRecyclerView.layoutManager = GridLayoutManager(activity, 2)
+//        mRecyclerView.adapter = ProfileRecyclerAdapter()
         return rootView
     }
 }

@@ -1,30 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+<android.support.v7.widget.LinearLayoutCompat
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:fitsSystemWindows="true"
-        tools:context="com.example.fedexhci.MainActivity">
+        tools:context="com.example.fedexhci.MainActivity"
+        android:id="@+id/fragment_profile">
+
+    <include layout="@layout/profile_header"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+    <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="497dp"
+            android:fitsSystemWindows="true"
+            tools:layout_editor_absoluteY="234dp"
+            >
+
+        <android.support.v7.widget.RecyclerView
+        android:id="@+id/profile_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+
+</android.support.v7.widget.LinearLayoutCompat>
 
 
 
-
-
-
-    <!--<android.support.design.widget.CoordinatorLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="497dp"-->
-            <!--android:fitsSystemWindows="true"-->
-            <!--tools:layout_editor_absoluteY="234dp">-->
-
-        <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/executive_recycler_view"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
-
-    <!--</android.support.design.widget.CoordinatorLayout>-->
-
-</android.support.constraint.ConstraintLayout>
