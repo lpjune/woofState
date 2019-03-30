@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.circularreveal.CircularRevealGridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:columnCount="3"
+        tools:showIn="@layout/fragment_profile">
+
+
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="36dp"
+            android:src="@drawable/octigon"
+            android:adjustViewBounds="true"
+            android:layout_gravity="fill_horizontal"
+            android:layout_columnWeight="1"
+            android:id="@+id/badge1"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="36dp"
+            android:src="@drawable/octigon"
+            android:adjustViewBounds="true"
+            android:layout_gravity="fill_horizontal"
+            android:layout_columnWeight="1"
+            android:id="@+id/badge2"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="36dp"
+            android:src="@drawable/octigon"
+            android:adjustViewBounds="true"
+            android:layout_gravity="fill_horizontal"
+            android:layout_columnWeight="1"
+            android:id="@+id/badge3"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="36dp"
+            android:src="@drawable/octigon"
+            android:adjustViewBounds="true"
+            android:layout_gravity="fill_horizontal"
+            android:layout_columnWeight="1"
+            android:id="@+id/badge4"/>
+
+
+
+</android.support.design.circularreveal.CircularRevealGridLayout>
