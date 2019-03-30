@@ -12,22 +12,22 @@ import com.example.fedexhci.Report
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
 
-    private val mReportList = Report.managerReportList
+    private val mCardList = Report.dogCardList
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var itemImage: ImageView
-        var itemTitle: TextView
-        var itemDetail: TextView
-        var itemDate: TextView
-        var itemAuthor: TextView
+        var cardImage: ImageView
+        var cardName: TextView
+        var cardDetail: TextView
+        var cardDate: TextView
+        var cardOrg: TextView
 
         init {
-            itemImage = itemView.findViewById(R.id.item_image)
-            itemTitle = itemView.findViewById(R.id.item_title)
-            itemDetail = itemView.findViewById(R.id.item_detail)
-            itemDate = itemView.findViewById(R.id.item_date)
-            itemAuthor = itemView.findViewById(R.id.item_author)
+            cardImage = itemView.findViewById(R.id.item_image)
+            cardName = itemView.findViewById(R.id.card_name)
+            cardDetail = itemView.findViewById(R.id.card_detail)
+            cardDate = itemView.findViewById(R.id.card_date)
+            cardOrg = itemView.findViewById(R.id.card_org)
         }
     }
 
@@ -38,15 +38,15 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        var mReport: Report = mReportList[i]
-        viewHolder.itemTitle.text = mReport.title
-        viewHolder.itemDetail.text = mReport.detail
-        viewHolder.itemDate.text = mReport.date
-        viewHolder.itemAuthor.text = mReport.author
-        viewHolder.itemImage.setImageResource(mReport.image)
+        var mReport: Report = mCardList[i]
+        viewHolder.cardName.text = mReport.name
+        viewHolder.cardDetail.text = mReport.detail
+        viewHolder.cardDate.text = mReport.date
+        viewHolder.cardOrg.text = mReport.org
+        viewHolder.cardImage.setImageResource(mReport.image)
     }
 
     override fun getItemCount(): Int {
-        return mReportList.size
+        return mCardList.size
     }
 }
