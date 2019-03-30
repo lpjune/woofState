@@ -15,10 +15,6 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
 
-    <include
-            layout="@layout/badge_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
     <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
