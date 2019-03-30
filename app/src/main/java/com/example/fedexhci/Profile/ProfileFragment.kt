@@ -29,17 +29,17 @@ class ProfileFragment: Fragment() {
         mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 2)
         mProfileRecyclerView.adapter = ProfileRecyclerAdapter()
 
-        val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
-        badge1.setOnClickListener { badgeHasBeenClicked("Badge 1",rootView) }
-
-        val badge2 = rootView.findViewById<ImageView>(R.id.badge2)
-        badge2.setOnClickListener { badgeHasBeenClicked("Badge 2",rootView) }
-
-        val badge3 = rootView.findViewById<ImageView>(R.id.badge3)
-        badge3.setOnClickListener { badgeHasBeenClicked("Badge 3",rootView) }
-
-        val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
-        badge4.setOnClickListener { badgeHasBeenClicked("Badge 4",rootView) }
+//        val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
+//        badge1.setOnClickListener { badgeHasBeenClicked("Badge 1",rootView) }
+//
+//        val badge2 = rootView.findViewById<ImageView>(R.id.badge2)
+//        badge2.setOnClickListener { badgeHasBeenClicked("Badge 2",rootView) }
+//
+//        val badge3 = rootView.findViewById<ImageView>(R.id.badge3)
+//        badge3.setOnClickListener { badgeHasBeenClicked("Badge 3",rootView) }
+//
+//        val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
+//        badge4.setOnClickListener { badgeHasBeenClicked("Badge 4",rootView) }
 
         return rootView
     }
