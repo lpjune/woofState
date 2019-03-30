@@ -5,26 +5,21 @@ import android.graphics.ImageDecoder
 import android.media.Image
 import java.util.*
 
-class Report (title: String, detail: String, image: Int, date: String, author: String, department: String) {
+class Report (name: String, detail: String, image: Int, date: String, org: String) {
 
     init {
-        when(department) {
-            "Manager" -> managerReportList.add(this)
-            "Senior Manager" -> seniorManagerReportList.add(this)
-            "Executive" -> executiveReportList.add(this)
-        }
+        dogCardList.add(this)
+        profileCardList.add(this)
     }
 
-    var title:String = title
+    var name:String = name
     var detail:String = detail
     var image: Int = image
     var date:String= date
-    var author: String = author
-    var department: String = department
+    var org: String = org
 
     companion object {
-        val managerReportList = arrayListOf<Report>()
-        val seniorManagerReportList = arrayListOf<Report>()
-        val executiveReportList = arrayListOf<Report>()
+        val dogCardList = arrayListOf<Report>()
+        val profileCardList = arrayListOf<Report>()
     }
 }
