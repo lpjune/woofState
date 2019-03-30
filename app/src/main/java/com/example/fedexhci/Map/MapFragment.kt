@@ -15,11 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.android.synthetic.main.fragment_map.*
 import com.google.android.gms.maps.model.CameraPosition
 import android.R.attr.fragment
-
-
-
-
-
+import android.content.Intent
 
 
 class MapFragment:  Fragment(), OnMapReadyCallback{
@@ -32,7 +28,9 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
     }
 
 //    var fab = view?.findViewById<FloatingActionButton>(R.id.fab)
-
+    val SYDNEY = LatLng(-33.862, 151.21)
+    val ATLANTA = LatLng(33.7490,-84.3880)
+    val ZOOM_LEVEL = 13f
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,19 +39,20 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         val rootView = inflater.inflate(com.example.fedexhci.R.layout.fragment_map, container, false)
 
         val fm = childFragmentManager
-        var fragment: SupportMapFragment = (fm.findFragmentById(com.example.fedexhci.R.id.map) as SupportMapFragment)
+        val fragment: SupportMapFragment = (fm.findFragmentById(com.example.fedexhci.R.id.map) as SupportMapFragment)
 
+        fragment?.getMapAsync(this)
         return rootView
     }
 
 
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-        // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        googleMap ?: return
+        with(googleMap) {
+            moveCamera(CameraUpdateFactory.newLatLngZoom(ATLANTA, ZOOM_LEVEL))
+            addMarker(MarkerOptions().position(ATLANTA))
+        }
     }
 
 }
