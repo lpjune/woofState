@@ -10,10 +10,15 @@
         tools:context="com.example.fedexhci.MainActivity"
         android:id="@+id/fragment_profile">
 
-    <include layout="@layout/profile_header"
+    <include
+            layout="@layout/profile_header"
             android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
+
+    <include
+            layout="@layout/badge_layout"
             android:layout_width="match_parent"
-            />
+            android:layout_height="wrap_content"/>
 
     <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -23,10 +28,10 @@
             >
 
         <android.support.v7.widget.RecyclerView
-        android:id="@+id/profile_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                android:id="@+id/profile_dogs_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     </android.support.design.widget.CoordinatorLayout>
 
