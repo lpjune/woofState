@@ -16,7 +16,8 @@
             android:src="@drawable/octigon"
             android:adjustViewBounds="true"
             android:layout_gravity="fill_horizontal"
-            android:layout_columnWeight="1"/>
+            android:layout_columnWeight="1"
+            android:id="@+id/badge1"/>
     <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -25,7 +26,8 @@
             android:src="@drawable/octigon"
             android:adjustViewBounds="true"
             android:layout_gravity="fill_horizontal"
-            android:layout_columnWeight="1"/>
+            android:layout_columnWeight="1"
+            android:id="@+id/badge2"/>
     <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,9 +36,18 @@
             android:src="@drawable/octigon"
             android:adjustViewBounds="true"
             android:layout_gravity="fill_horizontal"
-            android:layout_columnWeight="1"/>
-
-
+            android:layout_columnWeight="1"
+            android:id="@+id/badge3"/>
+    <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="36dp"
+            android:src="@drawable/octigon"
+            android:adjustViewBounds="true"
+            android:layout_gravity="fill_horizontal"
+            android:layout_columnWeight="1"
+            android:id="@+id/badge4"/>
 
 
 
