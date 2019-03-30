@@ -16,12 +16,11 @@ import kotlinx.android.synthetic.main.tab_layout.*
 class MainActivity : AppCompatActivity() {
 
     val mReport1: Report = Report(
-        "Report 1",
+        "Mac",
         "Detail One",
         R.drawable.calendar_icon,
         "2/24/19",
-        " // Jack Sparrow",
-        "Manager"
+        " // CARA"
     )
 
     val mReport2: Report = Report(
@@ -29,8 +28,7 @@ class MainActivity : AppCompatActivity() {
         "Detail Two",
         R.drawable.calendar_icon,
         "1/07/19",
-        " // Bob Saget",
-        "Manager"
+        " // Bob Saget"
     )
 
     val mReport3: Report = Report(
@@ -38,8 +36,7 @@ class MainActivity : AppCompatActivity() {
         "Detail Three",
         R.drawable.calendar_icon,
         "3/17/19",
-        " // DJ Tanner",
-        "Senior Manager"
+        " // DJ Tanner"
     )
 
     val mReport4: Report = Report(
@@ -47,8 +44,7 @@ class MainActivity : AppCompatActivity() {
         "Detail Four",
         R.drawable.calendar_icon,
         "2/04/19",
-        " // Piper Chapman",
-        "Senior Manager"
+        " // Piper Chapman"
     )
 
     val mReport5: Report = Report(
@@ -56,16 +52,14 @@ class MainActivity : AppCompatActivity() {
         "Detail Five",
         R.drawable.calendar_icon,
         "3/15/19",
-        " // Billy Joel",
-        "Executive"
+        " // Billy Joel"
     )
     val mReport6: Report = Report(
         "Report 6",
         "Detail Six",
         R.drawable.calendar_icon,
         "3/02/19",
-        " // Santa Claus",
-        "Executive"
+        " // Santa Claus"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -9,6 +9,7 @@ class Report (name: String, detail: String, image: Int, date: String, org: Strin
 
     init {
         dogCardList.add(this)
+        profileCardList.add(this)
     }
 
     var name:String = name
@@ -19,5 +20,6 @@ class Report (name: String, detail: String, image: Int, date: String, org: Strin
 
     companion object {
         val dogCardList = arrayListOf<Report>()
+        val profileCardList = arrayListOf<Report>()
     }
 }

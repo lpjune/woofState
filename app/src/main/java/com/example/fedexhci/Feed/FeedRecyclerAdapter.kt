@@ -1,5 +1,6 @@
 package com.example.fedexhci.Feed
 
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -23,13 +24,14 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         var cardOrg: TextView
 
         init {
-            cardImage = itemView.findViewById(R.id.item_image)
+            cardImage = itemView.findViewById(R.id.card_image)
             cardName = itemView.findViewById(R.id.card_name)
             cardDetail = itemView.findViewById(R.id.card_detail)
             cardDate = itemView.findViewById(R.id.card_date)
             cardOrg = itemView.findViewById(R.id.card_org)
         }
     }
+
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
@@ -44,6 +46,10 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         viewHolder.cardDate.text = mReport.date
         viewHolder.cardOrg.text = mReport.org
         viewHolder.cardImage.setImageResource(mReport.image)
+
+        viewHolder.cardImage.setOnClickListener(View.OnClickListener {
+
+        })
     }
 
     override fun getItemCount(): Int {

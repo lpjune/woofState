@@ -12,22 +12,22 @@ import com.example.fedexhci.Report
 
 class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHolder>() {
 
-    private val mReportList = Report.executiveReportList
+    private val mProfileList = Report.profileCardList
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
 
-        var itemImage: ImageView
-        var itemTitle: TextView
-        var itemDetail: TextView
-        var itemDate: TextView
-        var itemAuthor: TextView
+        var cardImage: ImageView
+        var cardName: TextView
+        var cardDetail: TextView
+        var cardDate: TextView
+        var cardOrg: TextView
 
         init {
-            itemImage = itemView.findViewById(R.id.item_image)
-            itemTitle = itemView.findViewById(R.id.item_title)
-            itemDetail = itemView.findViewById(R.id.item_detail)
-            itemDate = itemView.findViewById(R.id.item_date)
-            itemAuthor = itemView.findViewById(R.id.item_author)
+            cardImage = cardView.findViewById(R.id.card_image)
+            cardName = cardView.findViewById(R.id.card_name)
+            cardDetail = cardView.findViewById(R.id.card_detail)
+            cardDate = cardView.findViewById(R.id.card_date)
+            cardOrg = cardView.findViewById(R.id.card_org)
         }
     }
 
@@ -38,15 +38,15 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHo
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        var mReport: Report = mReportList[i]
-        viewHolder.itemTitle.text = mReport.title
-        viewHolder.itemDetail.text = mReport.detail
-        viewHolder.itemDate.text = mReport.date
-        viewHolder.itemAuthor.text = mReport.author
-        viewHolder.itemImage.setImageResource(mReport.image)
+        var mReport: Report = mProfileList[i]
+        viewHolder.cardName.text = mReport.name
+        viewHolder.cardDetail.text = mReport.detail
+        viewHolder.cardDate.text = mReport.date
+        viewHolder.cardOrg.text = mReport.org
+        viewHolder.cardImage.setImageResource(mReport.image)
     }
 
     override fun getItemCount(): Int {
-        return mReportList.size
+        return mProfileList.size
     }
 }
