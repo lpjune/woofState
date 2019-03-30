@@ -1,17 +1,22 @@
 package com.example.fedexhci.Feed
 
+import android.content.Context
 import android.support.v7.widget.CardView
+import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import com.example.fedexhci.MainActivity
 import com.example.fedexhci.R
 import com.example.fedexhci.Report
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
+
 
     private val mCardList = Report.dogCardList
 
@@ -47,10 +52,11 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         viewHolder.cardOrg.text = mReport.org
         viewHolder.cardImage.setImageResource(mReport.image)
 
-        viewHolder.cardImage.setOnClickListener(View.OnClickListener {
+        viewHolder.cardImage.setOnClickListener{
 
-        })
+        }
     }
+
 
     override fun getItemCount(): Int {
         return mCardList.size
