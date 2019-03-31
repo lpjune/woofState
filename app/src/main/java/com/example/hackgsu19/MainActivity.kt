@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     val mReport5: Report = Report(
         "Barbecue",
         "Male",
-        R.drawable.tyrion,
+        R.drawable.sia,
         "2/24/19",
         "PAWS Atlanta"
     )

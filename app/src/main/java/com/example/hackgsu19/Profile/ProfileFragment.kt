@@ -13,6 +13,7 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import android.view.WindowManager
 import android.view.LayoutInflater
+import android.widget.TextView
 import com.example.hackgsu19.R
 
 
@@ -33,22 +34,22 @@ class ProfileFragment: Fragment() {
         mProfileRecyclerView.adapter = adapter
 
         val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
-        badge1.setOnClickListener { badgeHasBeenClicked("Badge 1",rootView) }
+        badge1.setOnClickListener { badgeHasBeenClicked("7 day streak Badge","Congratulations! You have a 7 day walking streak!",rootView) }
 
         val badge2 = rootView.findViewById<ImageView>(R.id.badge2)
-        badge2.setOnClickListener { badgeHasBeenClicked("Badge 2",rootView) }
+        badge2.setOnClickListener { badgeHasBeenClicked("Favorite Badge","Woohoo! You have favorited a pal!",rootView) }
 
         val badge3 = rootView.findViewById<ImageView>(R.id.badge3)
-        badge3.setOnClickListener { badgeHasBeenClicked("Badge 3",rootView) }
+        badge3.setOnClickListener { badgeHasBeenClicked("Picture Badge","Nice! You have posted a picture!",rootView) }
 
         val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
-        badge4.setOnClickListener { badgeHasBeenClicked("Badge 4",rootView) }
+        badge4.setOnClickListener { badgeHasBeenClicked("Travel Badge","Great! You have traveled with a pal!",rootView) }
 
         return rootView
     }
 
-    private fun badgeHasBeenClicked(badgeName: String, view: View){
-        Toast.makeText(activity,"Clicked ".plus(badgeName) ,Toast.LENGTH_LONG).show()
+    private fun badgeHasBeenClicked(badgeTitle: String, badgeName: String, view: View){
+//        Toast.makeText(activity,"Clicked ".plus(badgeName) ,Toast.LENGTH_LONG).show()
 
         // Initialize a new layout inflater instance
         val inflater:LayoutInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -58,6 +59,8 @@ class ProfileFragment: Fragment() {
 
 
         val popupView = LayoutInflater.from(activity).inflate(R.layout.badge_popup, null)
+        popupView.findViewById<TextView>(R.id.badge_id).setText(badgeName);
+        popupView.findViewById<TextView>(R.id.badge_title_id).setText(badgeTitle);
         val popupWindow =
             PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
         popupWindow.isFocusable = true
