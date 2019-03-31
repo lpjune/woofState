@@ -21,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
         FacebookSdk.sdkInitialize(applicationContext)
         AppEventsLogger.activateApp(this)
         setContentView(R.layout.login_layout)
