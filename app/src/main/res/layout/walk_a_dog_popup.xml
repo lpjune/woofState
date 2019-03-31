@@ -1,49 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_height="match_parent"
+        android:layout_width="match_parent"
         android:layout_gravity="center"
         android:padding="24dp"
+
         android:background="#FFFFFF">
 
-
-    <TextView
-            android:layout_width="0dp"
-            android:layout_height="21dp"
-            android:text="Atlanta Humane Society"
-            android:id="@+id/dog_shelter_name"
-            app:layout_constraintStart_toStartOf="parent"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-    <EditText
-            android:id="@+id/from"
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Start date"
-            app:layout_constraintTop_toBottomOf="@+id/dog_shelter_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="8dp"
-            android:singleLine="true"
-            android:inputType="date"
-            android:fontFamily="@font/roboto_thin"/>
+            android:orientation="vertical">
 
-    <EditText
-            android:id="@+id/from2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Time"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:singleLine="true"
-            android:inputType="date|time"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/from"/>
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+                android:id="@+id/badge_title_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Schedule a walk with Bernard"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="3dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                />
+
+
+        <Button
+                android:id="@+id/from"
+                android:text="From"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/dog_shelter_name"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                app:layout_constraintEnd_toStartOf="@+id/from_date_text_view"
+                android:layout_marginEnd="8dp"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xx/xx/xx"
+                app:layout_constraintTop_toTopOf="@+id/from"
+                app:layout_constraintBottom_toBottomOf="@+id/from"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/from_date_text_view"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginEnd="8dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xx/xx/xx 1:1:1"
+                app:layout_constraintTop_toTopOf="@+id/from"
+                app:layout_constraintBottom_toBottomOf="@+id/from"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/from_time_text_view"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginEnd="8dp"/>
+
+
+        <DatePicker
+                android:id="@+id/date_picker_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteY="435dp"
+                tools:layout_editor_absoluteX="50dp"
+                android:visibility="gone"
+                android:gravity="center"/>
+
+        <TimePicker
+                android:id="@+id/time_picker_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:gravity="center"/>
+
+        <Button
+                android:id="@+id/to"
+                android:text="To"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/dog_shelter_name"
+                android:layout_marginTop="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xx/xx/xx"
+                app:layout_constraintTop_toTopOf="@+id/from"
+                app:layout_constraintBottom_toBottomOf="@+id/from"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/to_date_text_view"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginEnd="8dp"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="xx/xx/xx 1:1:1"
+                app:layout_constraintTop_toTopOf="@+id/from"
+                app:layout_constraintBottom_toBottomOf="@+id/from"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/to_time_text_view"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:layout_marginEnd="8dp"/>
+
+        <DatePicker
+                android:id="@+id/date_picker_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteY="435dp"
+                tools:layout_editor_absoluteX="50dp"
+                android:visibility="gone"
+                android:gravity="center"/>
+
+        <TimePicker
+                android:id="@+id/time_picker_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:gravity="center"/>
+
+        <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_marginTop="8dp"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:backgroundTint="#367588"/>
+
+    </LinearLayout>
+</ScrollView>
