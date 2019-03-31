@@ -1,11 +1,9 @@
-package com.example.fedexhci.Profile
+package com.example.hackgsu19.Profile
 
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat.getSystemService
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.transition.Slide
@@ -15,7 +13,7 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import android.view.WindowManager
 import android.view.LayoutInflater
-import com.example.fedexhci.R
+import com.example.hackgsu19.R
 
 
 class ProfileFragment: Fragment() {
