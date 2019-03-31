@@ -133,6 +133,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         val toTimeTextView = popupView.findViewById<TextView>(R.id.to_time_text_view)
         val toDatePicker = popupView.findViewById<DatePicker>(R.id.date_picker_to)
         val toTimePicker = popupView.findViewById<TimePicker>(R.id.time_picker_to)
+        val submitButton = popupView.findViewById<Button>(R.id.submit)
 
         fromDatePicker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
             fromDateTextView.setText(monthOfYear.toString() + "/"+ dayOfMonth+"/"+year)
@@ -174,6 +175,12 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         val popupWindow =
             PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         popupWindow.isFocusable = true
+
+        submitButton.setOnClickListener {
+            popupWindow.dismiss()
+        }
+
+
 
         // Set an elevation for the popup window
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

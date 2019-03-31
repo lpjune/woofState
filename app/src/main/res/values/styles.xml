@@ -12,6 +12,7 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:textColorPrimary">@color/title</item>
 
+
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
