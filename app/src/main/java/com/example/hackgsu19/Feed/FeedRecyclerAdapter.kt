@@ -2,9 +2,11 @@ package com.example.hackgsu19.Feed
 
 import android.content.Context
 import android.os.Build
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.RecyclerView
 import android.transition.Slide
 import android.view.*
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
@@ -97,6 +99,13 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 }
 
                 popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
+
+
+                val fab = popupView.findViewById<FloatingActionButton>(R.id.fab)
+                fab.setOnClickListener {
+                    popupWindow.dismiss()
+                    openWalkADog(context)
+                }
             }
         }
     }
@@ -105,4 +114,37 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
     override fun getItemCount(): Int {
         return mCardList.size
     }
+
+    fun openWalkADog(context: Context?){
+        // Initialize a new layout inflater instance
+
+        val popupView = LayoutInflater.from(context).inflate(R.layout.walk_a_dog_popup, null)
+        val popupWindow =
+            PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        popupWindow.isFocusable = true
+
+        // Set an elevation for the popup window
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.elevation = 10.0F
+        }
+
+
+        // If API level 23 or higher then execute the code
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // Create a new slide animation for popup window enter transition
+            val slideIn = Slide()
+            slideIn.slideEdge = Gravity.TOP
+            popupWindow.enterTransition = slideIn
+
+            // Slide animation for popup window exit transition
+            val slideOut = Slide()
+            slideOut.slideEdge = Gravity.RIGHT
+            popupWindow.exitTransition = slideOut
+
+        }
+
+        popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
+
+    }
+
 }
