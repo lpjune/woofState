@@ -28,7 +28,9 @@ class ProfileFragment: Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
         val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
         mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 2)
-        mProfileRecyclerView.adapter = ProfileRecyclerAdapter()
+        val adapter = ProfileRecyclerAdapter()
+        adapter.setContext(activity)
+        mProfileRecyclerView.adapter = adapter
 
         val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
         badge1.setOnClickListener { badgeHasBeenClicked("Badge 1",rootView) }
