@@ -27,7 +27,7 @@ class ProfileFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
         val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
-        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 2)
+        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
         val adapter = ProfileRecyclerAdapter()
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
