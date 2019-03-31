@@ -61,7 +61,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 val view = inflater.inflate(R.layout.badge_popup,null)
 
 
-                val popupView = LayoutInflater.from(context).inflate(R.layout.badge_popup, null)
+                val popupView = LayoutInflater.from(context).inflate(R.layout.dog_popup, null)
                 val popupWindow =
                     PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
                 popupWindow.isFocusable = true
