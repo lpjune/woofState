@@ -39,7 +39,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 android:id="@+id/name"
                 />
-        
+
         <android.support.v7.widget.AppCompatImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"

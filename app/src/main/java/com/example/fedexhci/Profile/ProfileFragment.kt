@@ -13,7 +13,10 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
+import android.view.WindowManager
+import android.view.LayoutInflater
 import com.example.fedexhci.R
+
 
 class ProfileFragment: Fragment() {
 
@@ -25,21 +28,21 @@ class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
-        val mProfileRecyclerView = rootView.findViewById(R.id.profile_dogs_recycler_view) as RecyclerView // Add this
+        val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
         mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 2)
         mProfileRecyclerView.adapter = ProfileRecyclerAdapter()
 
-//        val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
-//        badge1.setOnClickListener { badgeHasBeenClicked("Badge 1",rootView) }
-//
-//        val badge2 = rootView.findViewById<ImageView>(R.id.badge2)
-//        badge2.setOnClickListener { badgeHasBeenClicked("Badge 2",rootView) }
-//
-//        val badge3 = rootView.findViewById<ImageView>(R.id.badge3)
-//        badge3.setOnClickListener { badgeHasBeenClicked("Badge 3",rootView) }
-//
-//        val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
-//        badge4.setOnClickListener { badgeHasBeenClicked("Badge 4",rootView) }
+        val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
+        badge1.setOnClickListener { badgeHasBeenClicked("Badge 1",rootView) }
+
+        val badge2 = rootView.findViewById<ImageView>(R.id.badge2)
+        badge2.setOnClickListener { badgeHasBeenClicked("Badge 2",rootView) }
+
+        val badge3 = rootView.findViewById<ImageView>(R.id.badge3)
+        badge3.setOnClickListener { badgeHasBeenClicked("Badge 3",rootView) }
+
+        val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
+        badge4.setOnClickListener { badgeHasBeenClicked("Badge 4",rootView) }
 
         return rootView
     }
@@ -54,12 +57,13 @@ class ProfileFragment: Fragment() {
         val view = inflater.inflate(R.layout.badge_popup,null)
 
 
-        var popup: PopupWindow? = null;
-        popup = PopupWindow(view, ConstraintLayout.LayoutParams.MATCH_PARENT,ConstraintLayout.LayoutParams.MATCH_PARENT)
+        val popupView = LayoutInflater.from(activity).inflate(R.layout.badge_popup, null)
+        val popupWindow =
+            PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
 
         // Set an elevation for the popup window
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            popup.elevation = 10.0F
+            popupWindow.elevation = 10.0F
         }
 
 
@@ -68,14 +72,16 @@ class ProfileFragment: Fragment() {
             // Create a new slide animation for popup window enter transition
             val slideIn = Slide()
             slideIn.slideEdge = Gravity.TOP
-            popup.enterTransition = slideIn
+            popupWindow.enterTransition = slideIn
 
             // Slide animation for popup window exit transition
             val slideOut = Slide()
             slideOut.slideEdge = Gravity.RIGHT
-            popup.exitTransition = slideOut
+            popupWindow.exitTransition = slideOut
 
         }
+
+        popupWindow.showAsDropDown(popupView, 0,0)
 
 
     }
