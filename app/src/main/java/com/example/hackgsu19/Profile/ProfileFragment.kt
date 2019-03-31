@@ -58,6 +58,7 @@ class ProfileFragment: Fragment() {
         val popupView = LayoutInflater.from(activity).inflate(R.layout.badge_popup, null)
         val popupWindow =
             PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        popupWindow.isFocusable = true
 
         // Set an elevation for the popup window
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -79,7 +80,7 @@ class ProfileFragment: Fragment() {
 
         }
 
-        popupWindow.showAsDropDown(popupView, 0,0)
+        popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
 
 
     }
