@@ -1,17 +1,19 @@
 package com.example.hackgsu19.Feed
 
+import android.content.Context
+import android.os.Build
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.transition.Slide
+import android.view.*
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.TextView
 import com.example.hackgsu19.R
 import com.example.hackgsu19.Report
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
-
+    private lateinit var context: Context
 
     private val mCardList = Report.dogCardList
 
@@ -32,6 +34,9 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         }
     }
 
+    fun setContext(context: Context?){
+        context?.let { this.context = context }
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
@@ -48,7 +53,41 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         viewHolder.cardImage.setImageResource(mReport.image)
 
         viewHolder.cardImage.setOnClickListener{
+            context?.let {
+                // Initialize a new layout inflater instance
+                val inflater:LayoutInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
+                // Inflate a custom view using layout inflater
+                val view = inflater.inflate(R.layout.badge_popup,null)
+
+
+                val popupView = LayoutInflater.from(context).inflate(R.layout.badge_popup, null)
+                val popupWindow =
+                    PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+                popupWindow.isFocusable = true
+
+                // Set an elevation for the popup window
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    popupWindow.elevation = 10.0F
+                }
+
+
+                // If API level 23 or higher then execute the code
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                    // Create a new slide animation for popup window enter transition
+                    val slideIn = Slide()
+                    slideIn.slideEdge = Gravity.TOP
+                    popupWindow.enterTransition = slideIn
+
+                    // Slide animation for popup window exit transition
+                    val slideOut = Slide()
+                    slideOut.slideEdge = Gravity.RIGHT
+                    popupWindow.exitTransition = slideOut
+
+                }
+
+                popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
+            }
         }
     }
 
