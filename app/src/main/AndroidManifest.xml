@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.fedexhci">
+          package="com.example.hackgsu19">
 
     <application
             android:allowBackup="true"
@@ -16,7 +16,7 @@
         <meta-data
                 android:name="com.google.android.gms.version"
                 android:value="@integer/google_play_services_version" />
-        <activity android:name=".MainActivity">
+        <activity android:name="com.example.hackgsu19.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -1,4 +1,4 @@
-package com.example.fedexhci
+package com.example.hackgsu19
 
 import org.junit.Test
 

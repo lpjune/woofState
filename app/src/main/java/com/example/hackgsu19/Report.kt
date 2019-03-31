@@ -1,9 +1,5 @@
-package com.example.fedexhci
+package com.example.hackgsu19
 
-
-import android.graphics.ImageDecoder
-import android.media.Image
-import java.util.*
 
 class Report (name: String, detail: String, image: Int, date: String, org: String) {
 

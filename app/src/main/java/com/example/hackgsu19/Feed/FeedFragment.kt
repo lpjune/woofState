@@ -1,15 +1,13 @@
-package com.example.fedexhci.Feed
+package com.example.hackgsu19.Feed
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.fedexhci.R
+import com.example.hackgsu19.R
 
 
 class FeedFragment: Fragment() {

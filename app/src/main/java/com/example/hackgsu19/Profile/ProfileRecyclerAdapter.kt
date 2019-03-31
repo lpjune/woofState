@@ -1,26 +1,20 @@
-package com.example.fedexhci.Feed
+package com.example.hackgsu19.Profile
 
-import android.content.Context
-import android.support.v7.widget.CardView
-import android.support.v7.widget.PopupMenu
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import com.example.fedexhci.MainActivity
-import com.example.fedexhci.R
-import com.example.fedexhci.Report
+import com.example.hackgsu19.R
+import com.example.hackgsu19.Report
 
 
-class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
+class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHolder>() {
 
+    private val mProfileList = Report.profileCardList
 
-    private val mCardList = Report.dogCardList
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(cardView: View) : RecyclerView.ViewHolder(cardView) {
 
         var cardImage: ImageView
         var cardName: TextView
@@ -29,14 +23,13 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         var cardOrg: TextView
 
         init {
-            cardImage = itemView.findViewById(R.id.card_image)
-            cardName = itemView.findViewById(R.id.card_name)
-            cardDetail = itemView.findViewById(R.id.card_detail)
-            cardDate = itemView.findViewById(R.id.card_date)
-            cardOrg = itemView.findViewById(R.id.card_org)
+            cardImage = cardView.findViewById(R.id.card_image)
+            cardName = cardView.findViewById(R.id.card_name)
+            cardDetail = cardView.findViewById(R.id.card_detail)
+            cardDate = cardView.findViewById(R.id.card_date)
+            cardOrg = cardView.findViewById(R.id.card_org)
         }
     }
-
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
@@ -45,20 +38,15 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        var mReport: Report = mCardList[i]
+        var mReport: Report = mProfileList[i]
         viewHolder.cardName.text = mReport.name
         viewHolder.cardDetail.text = mReport.detail
         viewHolder.cardDate.text = mReport.date
         viewHolder.cardOrg.text = mReport.org
         viewHolder.cardImage.setImageResource(mReport.image)
-
-        viewHolder.cardImage.setOnClickListener{
-
-        }
     }
 
-
     override fun getItemCount(): Int {
-        return mCardList.size
+        return mProfileList.size
     }
 }

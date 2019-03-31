@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
-        tools:context="com.example.fedexhci.MainActivity"
+        tools:context="com.example.hackgsu19.MainActivity"
         android:id="@+id/fragment_profile">
 
     <include
