@@ -66,6 +66,16 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                     PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
                 popupWindow.isFocusable = true
 
+                val imageView: ImageView = popupView.findViewById<ImageView>(R.id.dog_image_expanded)
+                imageView.setImageResource(mReport.image)
+
+                val cardName: TextView = popupView.findViewById<TextView>(R.id.dog_name_expanded)
+                cardName.setText(mReport.name)
+
+                val orgName: TextView = popupView.findViewById<TextView>(R.id.dog_shelter_name)
+                orgName.setText(mReport.org)
+
+
                 // Set an elevation for the popup window
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     popupWindow.elevation = 10.0F

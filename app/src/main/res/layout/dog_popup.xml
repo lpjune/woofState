@@ -37,7 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="21dp"
             android:text="Atlanta Humane Society"
-            android:id="@+id/shelter_name"
+            android:id="@+id/dog_shelter_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"

@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
     val mReport1: Report = Report(
         "Mac",
         "Detail One",
-        R.drawable.calendar_icon,
+        R.drawable.headshot,
         "2/24/19",
         " // CARA"
     )
