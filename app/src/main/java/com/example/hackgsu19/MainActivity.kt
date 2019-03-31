@@ -11,51 +11,128 @@ import kotlinx.android.synthetic.main.tab_layout.*
 class MainActivity : AppCompatActivity() {
 
     val mReport1: Report = Report(
-        "Mac",
-        "Detail One",
-        R.drawable.headshot,
+        "Bingo",
+        "Male",
+        R.drawable.fergus,
         "2/24/19",
-        " // CARA"
+        "Atlanta Humane Society"
     )
 
     val mReport2: Report = Report(
-        "Report 2",
-        "Detail Two",
-        R.drawable.calendar_icon,
-        "1/07/19",
-        " // Bob Saget"
+        "Tyrion",
+        "Male",
+        R.drawable.bernard,
+        "2/24/19",
+        "Atlanta Humane Society"
     )
+
 
     val mReport3: Report = Report(
-        "Report 3",
-        "Detail Three",
-        R.drawable.calendar_icon,
-        "3/17/19",
-        " // DJ Tanner"
+        "Ally",
+        "Female",
+        R.drawable.ally,
+        "2/24/19",
+        "CARA"
     )
+
 
     val mReport4: Report = Report(
-        "Report 4",
-        "Detail Four",
-        R.drawable.calendar_icon,
-        "2/04/19",
-        " // Piper Chapman"
+        "Banana Bread",
+        "Female",
+        R.drawable.bannanabread,
+        "2/24/19",
+        "Atlanta Humane Society"
     )
 
+
     val mReport5: Report = Report(
-        "Report 5",
-        "Detail Five",
-        R.drawable.calendar_icon,
-        "3/15/19",
-        " // Billy Joel"
+        "Barbecue",
+        "Male",
+        R.drawable.tyrion,
+        "2/24/19",
+        "PAWS Atlanta"
     )
+
+
     val mReport6: Report = Report(
-        "Report 6",
-        "Detail Six",
-        R.drawable.calendar_icon,
-        "3/02/19",
-        " // Santa Claus"
+        "Bella",
+        "Female",
+        R.drawable.bella,
+        "2/24/19",
+        "Atlanta Humane Society"
     )
+
+
+    val mReport7: Report = Report(
+        "Bella",
+        "Female",
+        R.drawable.bella2,
+        "2/24/19",
+        "Cara"
+    )
+
+    val mReport8: Report = Report(
+        "Bernard",
+        "Male",
+        R.drawable.bernard,
+        "2/24/19",
+        "Atlanta Humane Society"
+    )
+
+    val mReport9: Report = Report(
+        "Lucky",
+        "Male",
+        R.drawable.lucky,
+        "2/24/19",
+        "Atlanta Humane Society"
+    )
+
+
+    val mReport10: Report = Report(
+        "Milo",
+        "Female",
+        R.drawable.milo,
+        "2/24/19",
+        "CARA"
+    )
+
+
+    val mReport11: Report = Report(
+        "Onyx",
+        "Female",
+        R.drawable.onyx,
+        "2/24/19",
+        "Atlanta Humane Society"
+    )
+
+
+    val mReport12: Report = Report(
+        "Oreo",
+        "Male",
+        R.drawable.oreo,
+        "2/24/19",
+        "PAWS Atlanta"
+    )
+
+
+    val mReport13: Report = Report(
+        "Pinto Bean",
+        "Female",
+        R.drawable.pintobean,
+        "2/24/19",
+        "Atlanta Humane Society"
+    )
+
+
+    val mReport14: Report = Report(
+        "Rocky",
+        "Female",
+        R.drawable.rocky,
+        "2/24/19",
+        "Cara"
+    )
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
