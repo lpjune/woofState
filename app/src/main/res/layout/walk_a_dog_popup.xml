@@ -50,7 +50,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xx/xx/xx"
+                android:text=""
                 app:layout_constraintTop_toTopOf="@+id/from"
                 app:layout_constraintBottom_toBottomOf="@+id/from"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xx/xx/xx 1:1:1"
+                android:text=""
                 app:layout_constraintTop_toTopOf="@+id/from"
                 app:layout_constraintBottom_toBottomOf="@+id/from"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +102,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xx/xx/xx"
+                android:text=""
                 app:layout_constraintTop_toTopOf="@+id/from"
                 app:layout_constraintBottom_toBottomOf="@+id/from"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -113,7 +113,7 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="xx/xx/xx 1:1:1"
+                android:text=""
                 app:layout_constraintTop_toTopOf="@+id/from"
                 app:layout_constraintBottom_toBottomOf="@+id/from"
                 app:layout_constraintEnd_toEndOf="parent"
