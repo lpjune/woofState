@@ -26,7 +26,9 @@ class FeedFragment: Fragment() {
 
         val mRecyclerView = rootView.findViewById(R.id.manager_recycler_view) as RecyclerView // Add this
         mRecyclerView.layoutManager = GridLayoutManager(activity, 3)
-        mRecyclerView.adapter = FeedRecyclerAdapter()
+        val myAdapter = FeedRecyclerAdapter()
+        myAdapter.setContext(context)
+        mRecyclerView.adapter = myAdapter
 
 
         return rootView

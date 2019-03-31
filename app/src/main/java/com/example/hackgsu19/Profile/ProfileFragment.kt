@@ -27,8 +27,10 @@ class ProfileFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
         val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
-        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 2)
-        mProfileRecyclerView.adapter = ProfileRecyclerAdapter()
+        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+        val adapter = ProfileRecyclerAdapter()
+        adapter.setContext(activity)
+        mProfileRecyclerView.adapter = adapter
 
         val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
         badge1.setOnClickListener { badgeHasBeenClicked("Badge 1",rootView) }
@@ -58,6 +60,7 @@ class ProfileFragment: Fragment() {
         val popupView = LayoutInflater.from(activity).inflate(R.layout.badge_popup, null)
         val popupWindow =
             PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        popupWindow.isFocusable = true
 
         // Set an elevation for the popup window
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -79,7 +82,7 @@ class ProfileFragment: Fragment() {
 
         }
 
-        popupWindow.showAsDropDown(popupView, 0,0)
+        popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
 
 
     }
