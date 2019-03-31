@@ -1,9 +1,12 @@
 package com.example.hackgsu19
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View
+import android.widget.TextView
 import kotlinx.android.synthetic.main.tab_layout.*
 
 
@@ -48,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     val mReport5: Report = Report(
         "Barbecue",
         "Male",
-        R.drawable.sia,
+        R.drawable.rocky,
         "2/24/19",
         "PAWS Atlanta"
     )
@@ -169,4 +172,5 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+
 }}

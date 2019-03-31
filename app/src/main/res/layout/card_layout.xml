@@ -27,7 +27,8 @@
                 android:textColor="@android:color/white"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="4dp"
-                card_view:layout_constraintBottom_toBottomOf="@+id/card_image"/>
+                card_view:layout_constraintBottom_toBottomOf="@+id/card_image"
+                android:elevation="2dp"/>
 
         <TextView
                 android:layout_width="0dp"
