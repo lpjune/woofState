@@ -14,11 +14,6 @@ import android.content.Intent
 import com.facebook.AccessToken
 
 
-
-
-
-
-
 class LoginActivity : AppCompatActivity() {
 
     val callbackManager = CallbackManager.Factory.create()
