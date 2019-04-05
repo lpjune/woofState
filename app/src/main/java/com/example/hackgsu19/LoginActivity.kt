@@ -2,16 +2,12 @@ package com.example.hackgsu19
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.facebook.CallbackManager
-import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
-import com.facebook.FacebookException
 import com.facebook.login.LoginResult
-import com.facebook.FacebookCallback
 import com.facebook.login.widget.LoginButton
 import java.util.*
 import android.content.Intent
-import com.facebook.AccessToken
+import com.facebook.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -22,8 +18,8 @@ class LoginActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        FacebookSdk.sdkInitialize(applicationContext)
-        AppEventsLogger.activateApp(this)
+        FacebookSdk.sdkInitialize(this.applicationContext)
+        AppEventsLogger.activateApp(application)
         setContentView(R.layout.login_layout)
 
         val accessToken = AccessToken.getCurrentAccessToken()

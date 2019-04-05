@@ -1,6 +1,7 @@
 package com.example.hackgsu19.Profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -8,13 +9,13 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.transition.Slide
 import android.view.*
-import android.widget.ImageView
-import android.widget.PopupWindow
-import android.widget.Toast
 import android.view.WindowManager
 import android.view.LayoutInflater
-import android.widget.TextView
+import android.widget.*
+import com.example.hackgsu19.LoginActivity
+import com.example.hackgsu19.MainActivity
 import com.example.hackgsu19.R
+import com.facebook.login.LoginManager
 
 
 class ProfileFragment: Fragment() {
@@ -44,6 +45,15 @@ class ProfileFragment: Fragment() {
 
         val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
         badge4.setOnClickListener { badgeHasBeenClicked("Travel Badge","Great! You have traveled with a pal!",rootView) }
+
+        val logoutButton: Button = rootView.findViewById(R.id.logout_button)
+        logoutButton.setOnClickListener {
+            val instance = LoginManager.getInstance()
+            instance?.logOut()
+            val myIntent = Intent(context, LoginActivity::class.java)
+            startActivity(myIntent)
+        }
+
 
         return rootView
     }
