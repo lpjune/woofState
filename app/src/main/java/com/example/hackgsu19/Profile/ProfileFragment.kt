@@ -3,9 +3,7 @@ package com.example.hackgsu19.Profile
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
 import android.transition.Slide
 import android.view.*
 import android.widget.ImageView
@@ -14,6 +12,8 @@ import android.widget.Toast
 import android.view.WindowManager
 import android.view.LayoutInflater
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.R
 
 
@@ -84,10 +84,6 @@ class ProfileFragment: Fragment() {
             popupWindow.exitTransition = slideOut
 
         }
-
         popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
-
-
     }
-
 }

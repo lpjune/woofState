@@ -1,20 +1,20 @@
 package com.example.hackgsu19.Feed
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.Fragment
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.hackgsu19.R
 
+import 	androidx.recyclerview.widget.RecyclerView
+
 
 class FeedFragment: Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>? = null
+    private var adapter: RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>? = null
 
     companion object {
         fun newInstance(): FeedFragment {
