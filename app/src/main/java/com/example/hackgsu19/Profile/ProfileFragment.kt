@@ -84,6 +84,10 @@ class ProfileFragment: Fragment() {
             popupWindow.exitTransition = slideOut
 
         }
+
         popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
+
+
     }
+
 }
