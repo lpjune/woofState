@@ -2,14 +2,13 @@ package com.example.hackgsu19.Feed
 
 import android.content.Context
 import android.os.Build
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.widget.RecyclerView
 import android.transition.Slide
-import android.transition.Visibility
 import android.view.*
 import android.widget.*
+import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.R
 import com.example.hackgsu19.Report
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
@@ -54,25 +53,19 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
         viewHolder.cardImage.setOnClickListener{
             context?.let {
-                // Initialize a new layout inflater instance
-                val inflater:LayoutInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-                // Inflate a custom view using layout inflater
-                val view = inflater.inflate(R.layout.badge_popup,null)
-
 
                 val popupView = LayoutInflater.from(context).inflate(R.layout.dog_popup, null)
                 val popupWindow =
                     PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
                 popupWindow.isFocusable = true
 
-                val imageView: ImageView = popupView.findViewById<ImageView>(R.id.dog_image_expanded)
+                val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
                 imageView.setImageResource(mReport.image)
 
-                val cardName: TextView = popupView.findViewById<TextView>(R.id.dog_name_expanded)
+                val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
                 cardName.setText(mReport.name)
 
-                val orgName: TextView = popupView.findViewById<TextView>(R.id.dog_shelter_name)
+                val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
                 orgName.setText(mReport.org)
 
 

@@ -1,12 +1,9 @@
 package com.example.hackgsu19
 
-import android.graphics.Typeface
 import android.os.Bundle
-import android.support.design.widget.TabLayout
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
-import android.view.View
-import android.widget.TextView
+import 	com.google.android.material.tabs.TabLayout
+import androidx.appcompat.app.AppCompatActivity
+import 	androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.tab_layout.*
 
 
@@ -153,6 +150,7 @@ class MainActivity : AppCompatActivity() {
 
         val adapter = TabPagerAdapter(supportFragmentManager,
             tab_layout.tabCount)
+        pager.adapter = adapter
         pager.adapter = adapter
 
         pager.addOnPageChangeListener(

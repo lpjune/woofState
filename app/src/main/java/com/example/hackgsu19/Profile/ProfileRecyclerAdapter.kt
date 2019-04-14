@@ -2,12 +2,12 @@ package com.example.hackgsu19.Profile
 
 import android.content.Context
 import android.os.Build
-import android.support.v7.widget.RecyclerView
 import android.transition.Slide
 import android.view.*
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.R
 import com.example.hackgsu19.Report
 
