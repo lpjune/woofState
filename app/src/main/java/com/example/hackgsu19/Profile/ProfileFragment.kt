@@ -15,7 +15,11 @@ import android.widget.*
 import com.example.hackgsu19.LoginActivity
 import com.example.hackgsu19.MainActivity
 import com.example.hackgsu19.R
+import com.facebook.AccessToken
+import com.facebook.GraphRequest
+import com.facebook.Profile
 import com.facebook.login.LoginManager
+import kotlinx.android.synthetic.main.profile_header.*
 
 
 class ProfileFragment: Fragment() {
@@ -28,11 +32,15 @@ class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
+
         val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
-        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+//        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+
         val adapter = ProfileRecyclerAdapter()
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
+
+        val accessToken = AccessToken.getCurrentAccessToken()
 
         val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
         badge1.setOnClickListener { badgeHasBeenClicked("7 day streak Badge","Congratulations! You have a 7 day walking streak!",rootView) }
@@ -53,6 +61,22 @@ class ProfileFragment: Fragment() {
             val myIntent = Intent(context, LoginActivity::class.java)
             startActivity(myIntent)
         }
+
+        val profile: Profile = Profile.getCurrentProfile()
+
+        val username: TextView = rootView.findViewById(R.id.name)
+        username.setText(profile.name)
+
+        val profilePicture: ImageView = rootView.findViewById(R.id.profile_image)
+        val width = profilePicture.measuredWidth
+        val height = profilePicture.measuredHeight
+
+//        val request = GraphRequest.newGraphPathRequest(accessToken,"/{user-id}/picture",
+//            )
+
+        if (width == 0 && height == 0) Toast.makeText(context,"Uh oh. shit",Toast.LENGTH_LONG).show()
+        else profilePicture.setImageURI(profile.getProfilePictureUri(width,height))
+
 
 
         return rootView
