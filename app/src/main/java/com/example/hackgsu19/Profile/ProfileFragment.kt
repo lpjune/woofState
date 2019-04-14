@@ -1,20 +1,26 @@
 package com.example.hackgsu19.Profile
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.transition.Slide
 import android.view.*
-import android.widget.ImageView
-import android.widget.PopupWindow
-import android.widget.Toast
 import android.view.WindowManager
 import android.view.LayoutInflater
+import android.widget.*
+import com.example.hackgsu19.LoginActivity
+import com.example.hackgsu19.MainActivity
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.R
+import com.facebook.AccessToken
+import com.facebook.GraphRequest
+import com.facebook.Profile
+import com.facebook.login.LoginManager
+import kotlinx.android.synthetic.main.profile_header.*
 
 
 class ProfileFragment: Fragment() {
@@ -27,11 +33,15 @@ class ProfileFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
+
         val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
-        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+//        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+
         val adapter = ProfileRecyclerAdapter()
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
+
+        val accessToken = AccessToken.getCurrentAccessToken()
 
         val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
         badge1.setOnClickListener { badgeHasBeenClicked("7 day streak Badge","Congratulations! You have a 7 day walking streak!",rootView) }
@@ -44,6 +54,31 @@ class ProfileFragment: Fragment() {
 
         val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
         badge4.setOnClickListener { badgeHasBeenClicked("Travel Badge","Great! You have traveled with a pal!",rootView) }
+
+        val logoutButton: Button = rootView.findViewById(R.id.logout_button)
+        logoutButton.setOnClickListener {
+            val instance = LoginManager.getInstance()
+            instance?.logOut()
+            val myIntent = Intent(context, LoginActivity::class.java)
+            startActivity(myIntent)
+        }
+
+        val profile: Profile = Profile.getCurrentProfile()
+
+        val username: TextView = rootView.findViewById(R.id.name)
+        username.setText(profile.name)
+
+        val profilePicture: ImageView = rootView.findViewById(R.id.profile_image)
+        val width = profilePicture.measuredWidth
+        val height = profilePicture.measuredHeight
+
+//        val request = GraphRequest.newGraphPathRequest(accessToken,"/{user-id}/picture",
+//            )
+
+        if (width == 0 && height == 0) Toast.makeText(context,"Uh oh. shit",Toast.LENGTH_LONG).show()
+        else profilePicture.setImageURI(profile.getProfilePictureUri(width,height))
+
+
 
         return rootView
     }
