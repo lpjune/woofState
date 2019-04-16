@@ -11,29 +11,20 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import android.Manifest.permission
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.Manifest.permission.READ_CONTACTS
 import android.content.pm.PackageManager
-import android.location.Location
-import com.example.hackgsu19.MainActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+
 
 
 class MapFragment:  Fragment(), OnMapReadyCallback{
     private lateinit var mMap: GoogleMap
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var lastLocation: Location
 
     companion object {
         fun newInstance(): MapFragment {
             return MapFragment()
         }
     }
-
 //    var fab = view?.findViewById<FloatingActionButton>(R.id.fab)
+
     val ATLANTA = LatLng(33.7490,-84.3880)
     val STARKVILLE = LatLng(33.46, -88.80)
     val ZOOM_LEVEL = 15f
@@ -47,7 +38,7 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         val fm = childFragmentManager
         val fragment: SupportMapFragment = (fm.findFragmentById(com.example.hackgsu19.R.id.map) as SupportMapFragment)
 
-        fragment?.getMapAsync(this)
+        fragment.getMapAsync(this)
         return rootView
     }
 
@@ -55,11 +46,8 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        with(mMap) {
-            moveCamera(CameraUpdateFactory.newLatLngZoom(STARKVILLE, ZOOM_LEVEL))
-//            addMarker(MarkerOptions().position(ATLANTA))
-        }
         showLocation()
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(STARKVILLE, ZOOM_LEVEL))
     }
 
     private fun doShowLocation() {
@@ -85,5 +73,4 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
             doShowLocation()
         }
     }
-
 }
