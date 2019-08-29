@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#fff391</color>
-    <color name="colorPrimaryDark">#b2a852</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#5db7de</color>
+    <color name="colorPrimaryDark">#07020d</color>
+    <color name="colorSecondary">#85baa1</color>
+    <color name="colorSecondaryLight">#f1e9db</color>
+    <color name="colorAccent">#688894</color>
     <color name="colorCard">#CC5E259D</color>
     <color name="title">#4b2c20</color>
     <color name="tabColor">#6d4c41</color>

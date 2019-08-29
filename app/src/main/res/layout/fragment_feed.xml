@@ -14,4 +14,14 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_action_button_map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            app:backgroundTint="@color/colorSecondary"
+            app:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_map_white_24dp"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

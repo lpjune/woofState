@@ -3,11 +3,10 @@
         style="@style/Widget.MaterialComponents.CardView"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_columnWeight="1"
-        android:id="@+id/card_view"
-        card_view:cardBackgroundColor="@color/colorCard">
+        android:id="@+id/card_view">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/card_name"
                 android:textSize="24sp"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorAccent"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="4dp"
                 card_view:layout_constraintBottom_toBottomOf="@+id/card_image"
