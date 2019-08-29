@@ -1,9 +1,14 @@
 package com.example.hackgsu19
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import 	com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AppCompatActivity
 import 	androidx.appcompat.widget.Toolbar
+import com.facebook.login.LoginManager
 import kotlinx.android.synthetic.main.tab_layout.*
 
 
@@ -143,6 +148,30 @@ class MainActivity : AppCompatActivity() {
         configureTabLayout()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.settings_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.settings_menu_profile -> {
+                val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+                tabLayout.getTabAt(2)!!.select()
+                true
+            }
+            R.id.settings_menu_logout -> {
+                val instance = LoginManager.getInstance()
+                instance?.logOut()
+                val myIntent = Intent(this, LoginActivity::class.java)
+                startActivity(myIntent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
     private fun configureTabLayout() {
         tab_layout.addTab(tab_layout.newTab().setText("Feed"))
         tab_layout.addTab(tab_layout.newTab().setText("Map"))

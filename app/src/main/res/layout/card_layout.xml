@@ -15,9 +15,13 @@
             android:orientation="vertical">
 
         <ImageView
+                android:id="@+id/card_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/card_image"/>
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="TODO" />
 
         <TextView
                 android:layout_width="match_parent"

@@ -55,14 +55,6 @@ class ProfileFragment: Fragment() {
         val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
         badge4.setOnClickListener { badgeHasBeenClicked("Travel Badge","Great! You have traveled with a pal!",rootView) }
 
-        val logoutButton: Button = rootView.findViewById(R.id.logout_button)
-        logoutButton.setOnClickListener {
-            val instance = LoginManager.getInstance()
-            instance?.logOut()
-            val myIntent = Intent(context, LoginActivity::class.java)
-            startActivity(myIntent)
-        }
-
         val profile: Profile = Profile.getCurrentProfile()
 
         val username: TextView = rootView.findViewById(R.id.name)

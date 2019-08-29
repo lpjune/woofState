@@ -5,4 +5,6 @@
     <!--Facebook Login Stuff-->
     <string name="facebook_app_id">563714677472088</string>
     <string name="fb_login_protocol_scheme">fb563714677472088</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
 </resources>
