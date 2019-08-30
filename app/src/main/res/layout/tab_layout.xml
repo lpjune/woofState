@@ -19,8 +19,8 @@
                 android:background="?attr/colorPrimary"
                 android:theme="@style/ToolbarTheme"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextColor="@color/tabColor"
-                app:logo="@drawable/dog_logo"/>
+                app:titleTextColor="@color/colorSecondaryLight"
+                app:logo="@drawable/dog_logo_white"/>
 
 
         <com.google.android.material.tabs.TabLayout
@@ -32,7 +32,7 @@
             android:background="?attr/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ToolbarTheme"
-            app:tabTextColor="@color/tabColor"/>
+            app:tabTextColor="@color/colorSecondaryLight"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
