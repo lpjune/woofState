@@ -180,7 +180,6 @@ class MainActivity : AppCompatActivity() {
         val adapter = TabPagerAdapter(supportFragmentManager,
             tab_layout.tabCount)
         pager.adapter = adapter
-        pager.adapter = adapter
 
         pager.addOnPageChangeListener(
             TabLayout.TabLayoutOnPageChangeListener(tab_layout))
