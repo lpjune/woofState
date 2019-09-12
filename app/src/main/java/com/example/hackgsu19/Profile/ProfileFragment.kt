@@ -1,7 +1,6 @@
 package com.example.hackgsu19.Profile
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,18 +9,12 @@ import android.view.*
 import android.view.WindowManager
 import android.view.LayoutInflater
 import android.widget.*
-import com.example.hackgsu19.LoginActivity
-import com.example.hackgsu19.MainActivity
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.R
 import com.facebook.AccessToken
-import com.facebook.GraphRequest
 import com.facebook.Profile
-import com.facebook.login.LoginManager
-import kotlinx.android.synthetic.main.profile_header.*
-
 
 class ProfileFragment: Fragment() {
 
@@ -34,12 +27,12 @@ class ProfileFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
 
-//        val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
-////        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+        val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
+        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
 
         val adapter = ProfileRecyclerAdapter()
         adapter.setContext(activity)
-//        mProfileRecyclerView.adapter = adapter
+        mProfileRecyclerView.adapter = adapter
 
         val accessToken = AccessToken.getCurrentAccessToken()
 

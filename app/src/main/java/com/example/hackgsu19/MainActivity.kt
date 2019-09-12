@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     val mReport1: Report = Report(
         "Bingo",
         "Male",
-        R.drawable.fergus,
+        R.drawable.bella,
         "2/24/19",
         "Atlanta Humane Society"
     )
