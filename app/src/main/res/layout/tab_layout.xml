@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_green_dark"
     android:fitsSystemWindows="true"
     android:clipToPadding="false"
     tools:context=".MainActivity">
@@ -44,7 +43,6 @@
 
     <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
-            android:background="@android:color/black"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
