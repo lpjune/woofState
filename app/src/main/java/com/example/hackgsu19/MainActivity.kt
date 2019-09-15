@@ -157,6 +157,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
+            R.id.settings_menu_feed -> {
+                val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
+                tabLayout.getTabAt(0)!!.select()
+                true
+            }
             R.id.settings_menu_profile -> {
                 val tabLayout = findViewById<TabLayout>(R.id.tab_layout)
                 tabLayout.getTabAt(2)!!.select()

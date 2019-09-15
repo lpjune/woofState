@@ -7,4 +7,5 @@
     <string name="fb_login_protocol_scheme">fb563714677472088</string>
     <string name="profile">Profile</string>
     <string name="logout">Logout</string>
+    <string name="feed">Feed</string>
 </resources>
