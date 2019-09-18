@@ -1,9 +1,15 @@
 package com.example.hackgsu19
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import 	com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AppCompatActivity
 import 	androidx.appcompat.widget.Toolbar
+import com.example.hackgsu19.Feed.FeedFragment
+import com.facebook.login.LoginManager
 import kotlinx.android.synthetic.main.tab_layout.*
 
 
@@ -13,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     val mReport1: Report = Report(
         "Bingo",
         "Male",
-        R.drawable.fergus,
+        R.drawable.bella,
         "2/24/19",
         "Atlanta Humane Society"
     )
@@ -132,43 +138,51 @@ class MainActivity : AppCompatActivity() {
         "Cara"
     )
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.tab_layout)
         val myToolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(myToolbar)
 
-        configureTabLayout()
+        val adapter = TabPagerAdapter(
+            supportFragmentManager, 3)
+
+        pager.adapter = adapter
     }
 
-    private fun configureTabLayout() {
-        tab_layout.addTab(tab_layout.newTab().setText("Feed"))
-        tab_layout.addTab(tab_layout.newTab().setText("Map"))
-        tab_layout.addTab(tab_layout.newTab().setText("Profile"))
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.settings_menu, menu)
+        return true
+    }
 
-        val adapter = TabPagerAdapter(supportFragmentManager,
-            tab_layout.tabCount)
-        pager.adapter = adapter
-        pager.adapter = adapter
-
-        pager.addOnPageChangeListener(
-            TabLayout.TabLayoutOnPageChangeListener(tab_layout))
-        tab_layout.addOnTabSelectedListener(object :
-            TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                pager.currentItem = tab.position
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.settings_menu_feed -> {
+                pager.currentItem = 0
+                true
             }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-
+            R.id.settings_menu_profile -> {
+                pager.currentItem = 2
+                true
             }
-
-            override fun onTabReselected(tab: TabLayout.Tab) {
-
+            R.id.settings_menu_logout -> {
+                val instance = LoginManager.getInstance()
+                instance?.logOut()
+                val myIntent = Intent(this, LoginActivity::class.java)
+                startActivity(myIntent)
+                true
             }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
-        })
+    fun switchFragment(fragIndex: Int){
+        if (fragIndex < 4)
+            pager.currentItem = fragIndex
+        else
+            pager.currentItem = 0
 
-}}
+    }
+}

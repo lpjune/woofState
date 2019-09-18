@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">wuphf</string>
+    <string name="app_name">woofstate</string>
     <!--Google Maps Stuff-->
     <string name="google_maps_key">AIzaSyAnpccd6FLNmYqX3L5ZfcPjrySXMmfMqPQ</string>
     <!--Facebook Login Stuff-->
     <string name="facebook_app_id">563714677472088</string>
     <string name="fb_login_protocol_scheme">fb563714677472088</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="feed">Feed</string>
 </resources>

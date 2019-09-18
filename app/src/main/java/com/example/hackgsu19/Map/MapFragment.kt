@@ -12,7 +12,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import android.content.pm.PackageManager
-
+import com.example.hackgsu19.MainActivity
+import com.example.hackgsu19.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.tab_layout.*
+import kotlinx.android.synthetic.main.tab_layout.view.*
 
 
 class MapFragment:  Fragment(), OnMapReadyCallback{
@@ -33,12 +38,17 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val rootView = inflater.inflate(com.example.hackgsu19.R.layout.fragment_map, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_map, container, false)
 
         val fm = childFragmentManager
-        val fragment: SupportMapFragment = (fm.findFragmentById(com.example.hackgsu19.R.id.map) as SupportMapFragment)
+        val fragment: SupportMapFragment = (fm.findFragmentById(R.id.map) as SupportMapFragment)
 
         fragment.getMapAsync(this)
+
+        val mFeedFAB = rootView.findViewById(R.id.floating_action_button_feed) as FloatingActionButton
+        mFeedFAB.setOnClickListener {
+            (activity as MainActivity).switchFragment(0)
+        }
         return rootView
     }
 
