@@ -9,8 +9,12 @@ import android.view.ViewGroup
 import com.example.hackgsu19.R
 
 import 	androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
+import com.example.hackgsu19.MainActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.tab_layout.*
+import kotlinx.android.synthetic.main.tab_layout.view.*
 
 
 class FeedFragment: Fragment() {
@@ -35,8 +39,7 @@ class FeedFragment: Fragment() {
 
         val mMapFAB = rootView.findViewById(R.id.floating_action_button_map) as FloatingActionButton
         mMapFAB.setOnClickListener {
-            val tabLayout = activity!!.findViewById(R.id.tab_layout) as TabLayout
-            tabLayout.getTabAt(1)!!.select()
+            (activity as MainActivity).switchFragment(1)
         }
 
         return rootView
