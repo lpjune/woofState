@@ -20,16 +20,10 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
         var cardImage: ImageView
         var cardName: TextView
-        var cardDetail: TextView
-        var cardDate: TextView
-        var cardOrg: TextView
 
         init {
             cardImage = itemView.findViewById(R.id.card_image)
             cardName = itemView.findViewById(R.id.card_name)
-            cardDetail = itemView.findViewById(R.id.card_detail)
-            cardDate = itemView.findViewById(R.id.card_date)
-            cardOrg = itemView.findViewById(R.id.card_org)
         }
     }
 
@@ -46,9 +40,6 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         var mReport: Report = mCardList[i]
         viewHolder.cardName.text = mReport.name
-        viewHolder.cardDetail.text = mReport.detail
-        viewHolder.cardDate.text = mReport.date
-        viewHolder.cardOrg.text = mReport.org
         viewHolder.cardImage.setImageResource(mReport.image)
 
         viewHolder.cardImage.setOnClickListener{
