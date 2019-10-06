@@ -11,7 +11,6 @@ import com.example.hackgsu19.R
 
 import 	androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.view.adapter.FeedRecyclerAdapter
-import com.example.hackgsu19.DataModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
@@ -38,8 +37,6 @@ class FeedFragment: Fragment() {
         val mMapFAB = rootView.findViewById(R.id.floating_action_button_map) as FloatingActionButton
         mMapFAB.setOnClickListener {
             (activity as MainActivity).switchFragment(1)
-            val dataModel = DataModel()
-            dataModel.sendRequest(context!!,activity as FragmentActivity)
         }
 
         return rootView
