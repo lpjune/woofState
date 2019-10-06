@@ -1,14 +1,15 @@
-package com.example.hackgsu19
+package com.example.hackgsu19.view.ui.main
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import 	com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AppCompatActivity
 import 	androidx.appcompat.widget.Toolbar
-import com.example.hackgsu19.Feed.FeedFragment
+import com.example.hackgsu19.R
+import com.example.hackgsu19.Report
+import com.example.hackgsu19.view.ui.login.LoginActivity
 import com.facebook.login.LoginManager
 import kotlinx.android.synthetic.main.tab_layout.*
 
@@ -145,7 +146,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(myToolbar)
 
         val adapter = TabPagerAdapter(
-            supportFragmentManager, 3)
+            supportFragmentManager, 3
+        )
 
         pager.adapter = adapter
     }

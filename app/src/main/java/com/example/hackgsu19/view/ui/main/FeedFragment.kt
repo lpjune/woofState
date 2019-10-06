@@ -1,4 +1,4 @@
-package com.example.hackgsu19.Feed
+package com.example.hackgsu19.view.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,21 +6,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import com.example.hackgsu19.R
 
 import 	androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
-import com.example.hackgsu19.MainActivity
+import com.example.hackgsu19.view.adapter.FeedRecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.tab_layout.*
-import kotlinx.android.synthetic.main.tab_layout.view.*
 
 
 class FeedFragment: Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>? = null
+    private var adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
 
     companion object {
         fun newInstance(): FeedFragment {
