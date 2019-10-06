@@ -48,14 +48,14 @@
                 android:name="preloaded_fonts"
                 android:resource="@array/preloaded_fonts"/>
         <!--GOOGLE END-->
-        <activity android:name="com.example.hackgsu19.LoginActivity">
+        <activity android:name="com.example.hackgsu19.view.ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.example.hackgsu19.MainActivity">
+        <activity android:name="com.example.hackgsu19.view.ui.main.MainActivity">
         </activity>
     </application>
 

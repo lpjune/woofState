@@ -1,4 +1,4 @@
-package com.example.hackgsu19.Profile
+package com.example.hackgsu19.view.ui.main
 
 import android.content.Context
 import android.os.Build
@@ -12,6 +12,7 @@ import android.widget.*
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hackgsu19.view.adapter.ProfileRecyclerAdapter
 import com.example.hackgsu19.R
 import com.facebook.AccessToken
 import com.facebook.Profile

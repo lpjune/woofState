@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:id="@+id/fragment_feed"
-        tools:context="com.example.hackgsu19.MainActivity">
+        tools:context="com.example.hackgsu19.view.ui.main.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/manager_recycler_view"

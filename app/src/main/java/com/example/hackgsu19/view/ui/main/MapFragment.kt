@@ -1,4 +1,4 @@
-package com.example.hackgsu19.Map
+package com.example.hackgsu19.view.ui.main
 
 import android.Manifest
 import android.os.Bundle
@@ -12,12 +12,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import android.content.pm.PackageManager
-import com.example.hackgsu19.MainActivity
 import com.example.hackgsu19.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.main.tab_layout.*
-import kotlinx.android.synthetic.main.tab_layout.view.*
 
 
 class MapFragment:  Fragment(), OnMapReadyCallback{

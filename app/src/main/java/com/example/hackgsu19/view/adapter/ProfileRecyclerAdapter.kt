@@ -1,4 +1,4 @@
-package com.example.hackgsu19.Profile
+package com.example.hackgsu19.view.adapter
 
 import android.content.Context
 import android.os.Build

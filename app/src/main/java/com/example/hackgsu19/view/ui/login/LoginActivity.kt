@@ -1,4 +1,4 @@
-package com.example.hackgsu19
+package com.example.hackgsu19.view.ui.login
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +9,8 @@ import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import java.util.*
 import android.content.Intent
+import com.example.hackgsu19.R
+import com.example.hackgsu19.view.ui.main.MainActivity
 import com.facebook.*
 
 
