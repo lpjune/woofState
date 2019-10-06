@@ -18,7 +18,7 @@
         <!--FB-->
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
-                   android:value="@string/facebook_app_id"/>
+                   android:value="@string/FACEBOOK_APP_ID"/>
 
         <activity android:name="com.facebook.FacebookActivity"
 
@@ -32,14 +32,14 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/fb_login_protocol_scheme" />
+                <data android:scheme="@string/FACEBOOK_LOGIN_PROTOCOL_SCHEMA" />
             </intent-filter>
         </activity>
         <!--FB END-->
         <!--GOOGLE-->
         <meta-data
                 android:name="com.google.android.maps.v2.API_KEY"
-                android:value="@string/google_maps_key"
+                android:value="@string/GOOGLEMAPS_API_KEY"
                 />
         <meta-data
                 android:name="com.google.android.gms.version"
