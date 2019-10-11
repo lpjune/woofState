@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import 	androidx.appcompat.widget.Toolbar
+import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
 import com.example.hackgsu19.Report
+import com.example.hackgsu19.api.DogClient
 import com.example.hackgsu19.view.ui.login.LoginActivity
 import com.facebook.login.LoginManager
+import com.loopj.android.http.JsonHttpResponseHandler
 import kotlinx.android.synthetic.main.tab_layout.*
-
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
