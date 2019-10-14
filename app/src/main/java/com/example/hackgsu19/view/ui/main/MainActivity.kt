@@ -10,6 +10,7 @@ import 	androidx.appcompat.widget.Toolbar
 import com.example.hackgsu19.R
 import com.example.hackgsu19.view.ui.login.LoginActivity
 import com.facebook.login.LoginManager
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.tab_layout.*
 
 
@@ -143,11 +144,12 @@ class MainActivity : AppCompatActivity() {
         val myToolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(myToolbar)
 
-        val adapter = TabPagerAdapter(
-            supportFragmentManager, 3
-        )
+        configureTabLayout()
+//        val adapter = TabPagerAdapter(
+//            supportFragmentManager, 3
+//        )
 
-        pager.adapter = adapter
+//        pager.adapter = adapter
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -185,4 +187,36 @@ class MainActivity : AppCompatActivity() {
             pager.currentItem = 0
 
     }
+
+    private fun configureTabLayout() {
+        tab_layout.addTab(tab_layout.newTab().setText("Feed"))
+        tab_layout.addTab(tab_layout.newTab().setText("Map"))
+        tab_layout.addTab(tab_layout.newTab().setText("Profile"))
+
+        val adapter = TabPagerAdapter(
+            supportFragmentManager,
+            tab_layout.tabCount
+        )
+        pager.adapter = adapter
+
+        pager.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(tab_layout)
+        )
+        tab_layout.addOnTabSelectedListener(object :
+            TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                pager.currentItem = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+
+            }
+
+        })
+    }
+
 }
