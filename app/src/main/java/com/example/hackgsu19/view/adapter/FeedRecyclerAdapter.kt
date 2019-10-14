@@ -6,18 +6,22 @@ import android.transition.Slide
 import android.view.*
 import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
-import com.example.hackgsu19.Report
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
     private lateinit var context: Context
+    private var dogList: ArrayList<DogModel> = ArrayList<DogModel>()
 
-    private val mCardList = Report.dogCardList
+//    private val mCardList = Report.dogCardList
+
+    fun setDogs (dogList: ArrayList<DogModel>){
+        this.dogList = dogList
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var cardImage: ImageView
         var cardName: TextView
 
@@ -38,12 +42,12 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        var mReport: Report = mCardList[i]
-        viewHolder.cardName.text = mReport.name
-        viewHolder.cardImage.setImageResource(mReport.image)
+        var dog: DogModel = dogList[i]
+        viewHolder.cardName.text = dog.name
+//        viewHolder.cardImage.setImageResource(mReport.image)
 
         viewHolder.cardImage.setOnClickListener{
-            context?.let {
+            context.let {
 
                 val popupView = LayoutInflater.from(context).inflate(R.layout.dog_popup, null)
                 val popupWindow =
@@ -51,13 +55,13 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 popupWindow.isFocusable = true
 
                 val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
-                imageView.setImageResource(mReport.image)
+//                imageView.setImageResource(mReport.image)
 
                 val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
-                cardName.setText(mReport.name)
+                cardName.setText(dog.name)
 
                 val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
-                orgName.setText(mReport.org)
+//                orgName.setText(dog.organizationId)
 
 
                 // Set an elevation for the popup window
@@ -86,7 +90,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 val fab = popupView.findViewById<FloatingActionButton>(R.id.fab)
                 fab.setOnClickListener {
                     popupWindow.dismiss()
-                    openWalkADog(context, mReport.name )
+//                    openWalkADog(context, dog.name )
                 }
             }
         }
@@ -94,7 +98,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
 
     override fun getItemCount(): Int {
-        return mCardList.size
+        return dogList.size
     }
 
     fun openWalkADog(context: Context?, badgeTitle:String){

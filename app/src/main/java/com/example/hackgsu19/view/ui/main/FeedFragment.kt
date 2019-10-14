@@ -6,18 +6,24 @@ import androidx.recyclerview.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentActivity
+import android.widget.Toast
 import com.example.hackgsu19.R
 
 import 	androidx.recyclerview.widget.RecyclerView
+import com.example.hackgsu19.DogModel
+import com.example.hackgsu19.api.DogClient
 import com.example.hackgsu19.view.adapter.FeedRecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.loopj.android.http.JsonHttpResponseHandler
+import cz.msebera.android.httpclient.Header
+import org.json.JSONObject
 
 
 class FeedFragment: Fragment() {
 
     private var layoutManager: RecyclerView.LayoutManager? = null
-    private var adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
+    //private var adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>? = null
+    private val myAdapter = FeedRecyclerAdapter()
 
     companion object {
         fun newInstance(): FeedFragment {
@@ -30,15 +36,45 @@ class FeedFragment: Fragment() {
 
         val mRecyclerView = rootView.findViewById(R.id.manager_recycler_view) as RecyclerView // Add this
         mRecyclerView.layoutManager = GridLayoutManager(activity, 1)
-        val myAdapter = FeedRecyclerAdapter()
+        //val myAdapter = FeedRecyclerAdapter()
         myAdapter.setContext(context)
         mRecyclerView.adapter = myAdapter
-
         val mMapFAB = rootView.findViewById(R.id.floating_action_button_map) as FloatingActionButton
         mMapFAB.setOnClickListener {
             (activity as MainActivity).switchFragment(1)
         }
-
+        fetchDogs()
         return rootView
+    }
+
+    private fun fetchDogs(){
+        val client = DogClient()
+        client.getAnimals(object: JsonHttpResponseHandler(){
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out cz.msebera.android.httpclient.Header>?,
+                response: JSONObject?
+            ) {
+                val items = response?.getJSONArray("animals")
+                if (items != null) {
+                    val dogs = DogModel.fromJSON(items)
+                    myAdapter.setDogs(dogs)
+                    myAdapter.notifyDataSetChanged()
+                }
+                Toast.makeText(context,items?.toString(), Toast.LENGTH_LONG).show()
+                print(items)
+                super.onSuccess(statusCode, headers, response)
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseString: String?,
+                throwable: Throwable?
+            ) {
+                Toast.makeText(context,"Fix token: " + responseString,Toast.LENGTH_LONG).show()
+                super.onFailure(statusCode, headers, responseString, throwable)
+            }
+        })
     }
 }
