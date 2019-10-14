@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Picasso
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
@@ -45,6 +46,8 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         var dog: DogModel = dogList[i]
         viewHolder.cardName.text = dog.name
 //        viewHolder.cardImage.setImageResource(mReport.image)
+
+        Picasso.with(context).load(dog.imageUrl).into(viewHolder.cardImage)
 
         viewHolder.cardImage.setOnClickListener{
             context.let {

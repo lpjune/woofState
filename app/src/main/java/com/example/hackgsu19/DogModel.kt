@@ -8,6 +8,7 @@ class DogModel {
     var name:String? = null
 //    var organizationId: String? = null
     var url: String? = null
+    var imageUrl: String? = null
     var type: String? = null
     var species: String? = null
     //TODO: Breeds, Colors,
@@ -21,6 +22,12 @@ class DogModel {
             dogModel.name = jsonObject.getString("name")
 //            dogModel.organizationId = jsonObject.getString("organzation_id")
             dogModel.url = jsonObject.getString("url")
+
+            val photos: JSONArray = jsonObject.getJSONArray("photos")
+            if(photos.length() > 0) {
+                val photo: JSONObject = photos[0] as JSONObject
+                dogModel.imageUrl = photo.getString("full")
+            }
 
             print(dogModel.name + "\n\n\n\n")
 
