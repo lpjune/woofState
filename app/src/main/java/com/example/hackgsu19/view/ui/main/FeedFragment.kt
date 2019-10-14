@@ -15,6 +15,7 @@ import com.example.hackgsu19.api.DogClient
 import com.example.hackgsu19.view.adapter.FeedRecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.JsonHttpResponseHandler
+import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
 
 
@@ -63,6 +64,16 @@ class FeedFragment: Fragment() {
                 Toast.makeText(context,items?.toString(), Toast.LENGTH_LONG).show()
                 print(items)
                 super.onSuccess(statusCode, headers, response)
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseString: String?,
+                throwable: Throwable?
+            ) {
+                Toast.makeText(context,"Fix token: " + responseString,Toast.LENGTH_LONG).show()
+                super.onFailure(statusCode, headers, responseString, throwable)
             }
         })
     }
