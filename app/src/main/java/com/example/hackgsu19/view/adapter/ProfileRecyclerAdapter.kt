@@ -8,17 +8,16 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
-import com.example.hackgsu19.Report
 
 
 class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHolder>() {
 
-    private val mProfileList = Report.profileCardList
+//    private val mProfileList = DogModel.profileCardList
     private lateinit var context: Context
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var cardImage: ImageView
         var cardName: TextView
 
@@ -39,9 +38,9 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHo
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        var mReport: Report = mProfileList[i]
+        val mProfileList = ArrayList<DogModel>()
+        var mReport: DogModel = mProfileList[i]
         viewHolder.cardName.text = mReport.name
-        viewHolder.cardImage.setImageResource(mReport.image)
 
         viewHolder.cardImage.setOnClickListener{
             context?.let {
@@ -52,13 +51,13 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHo
                 popupWindow.isFocusable = true
 
                 val imageView: ImageView = popupView.findViewById<ImageView>(R.id.dog_image_expanded)
-                imageView.setImageResource(mReport.image)
+//                imageView.setImageResource(mReport.image)
 
                 val cardName: TextView = popupView.findViewById<TextView>(R.id.dog_name_expanded)
                 cardName.setText(mReport.name)
 
                 val orgName: TextView = popupView.findViewById<TextView>(R.id.dog_shelter_name)
-                orgName.setText(mReport.org)
+//                orgName.setText(mReport.org)
 
 
                 // Set an elevation for the popup window
@@ -88,6 +87,7 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHo
 
 
     override fun getItemCount(): Int {
+        val mProfileList = ArrayList<DogModel>()
         return mProfileList.size
     }
 }
