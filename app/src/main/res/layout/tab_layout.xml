@@ -26,6 +26,16 @@
                 app:logo="@drawable/dog_logo_white"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:titleTextColor="@color/colorSecondaryLight" />
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/colorPrimary"
+                android:minHeight="0dp"
+                android:theme="@style/ToolbarTheme"
+                app:tabGravity="fill"
+                app:tabMode="fixed"
+                app:tabTextColor="@color/colorSecondaryLight" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
