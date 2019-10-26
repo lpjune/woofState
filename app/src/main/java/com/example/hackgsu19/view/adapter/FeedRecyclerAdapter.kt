@@ -1,6 +1,7 @@
 package com.example.hackgsu19.view.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.transition.Slide
 import android.view.*
@@ -9,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
     private lateinit var context: Context
+    private lateinit var viewHolder: ViewHolder
     private var dogList: ArrayList<DogModel> = ArrayList<DogModel>()
 
 //    private val mCardList = Report.dogCardList
@@ -39,15 +42,35 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.card_layout, viewGroup, false)
-        return ViewHolder(v)
+        viewHolder = ViewHolder(v)
+        return viewHolder
     }
 
+    private var testBoolean = true
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         var dog: DogModel = dogList[i]
-        viewHolder.cardName.text = dog.name
-//        viewHolder.cardImage.setImageResource(mReport.image)
 
-        Picasso.with(context).load(dog.imageUrl).into(viewHolder.cardImage)
+        if(i >= dogList.size) testBoolean = false
+
+        if(testBoolean){
+            viewHolder.cardName.text = dog.name
+        }
+
+        if (dog.image == null){
+            Picasso.with(context)
+                .load(dog.imageUrl)
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.dogplaceholder)
+                .into(viewHolder.cardImage)
+
+            viewHolder.cardImage.setBackgroundColor(Color.CYAN)
+        } else {
+            viewHolder.cardImage.setImageDrawable(dog.image)
+        }
+
+//            .resize(viewHolder.itemView.measuredWidth,viewHolder.itemView.measuredWidth)
+//            .centerCrop()
 
         viewHolder.cardImage.setOnClickListener{
             context.let {

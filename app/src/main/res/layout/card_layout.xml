@@ -11,8 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:contentDescription="TODO"
-            android:src="@drawable/bannanabread" />
+            android:contentDescription="TODO" />
 
     <TextView
             android:id="@+id/card_name"

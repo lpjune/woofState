@@ -1,5 +1,6 @@
 package com.example.hackgsu19
 
+import android.graphics.drawable.Drawable
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -9,6 +10,7 @@ class DogModel {
 //    var organizationId: String? = null
     var url: String? = null
     var imageUrl: String? = null
+    var image: Drawable? = null
     var type: String? = null
     var species: String? = null
     //TODO: Breeds, Colors,
