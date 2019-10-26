@@ -69,9 +69,6 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
             viewHolder.cardImage.setImageDrawable(dog.image)
         }
 
-//            .resize(viewHolder.itemView.measuredWidth,viewHolder.itemView.measuredWidth)
-//            .centerCrop()
-
         viewHolder.cardImage.setOnClickListener{
             context.let {
 
