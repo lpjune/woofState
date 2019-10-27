@@ -31,7 +31,10 @@ class DogModel {
                 dogModel.imageUrl = photo.getString("full")
             }
 
-            print(dogModel.name + "\n\n\n\n")
+            //TODO: Remove
+            print("*****\n*\n")
+            print(dogModel.name + "  " + photos.toString())
+            print("*****\n*\n")
 
             return dogModel
         }
