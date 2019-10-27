@@ -11,8 +11,10 @@ class DogModel {
     var url: String? = null
     var imageUrl: String? = null
     var image: Drawable? = null
-    var type: String? = null
-    var species: String? = null
+    var breeds: String? = null
+    var age: String? = null
+    var gender: String? = null
+    var size: String? = null
     //TODO: Breeds, Colors,
 
 
@@ -30,6 +32,25 @@ class DogModel {
                 val photo: JSONObject = photos[0] as JSONObject
                 dogModel.imageUrl = photo.getString("full")
             }
+
+            val breeds: JSONObject = jsonObject.getJSONObject("breeds")
+            if(breeds.getBoolean("unknown"))
+                dogModel.breeds = "Unknown"
+            else{
+                dogModel.breeds = breeds.getString("primary")
+                val secondary = breeds.getString("secondary")
+                if (secondary != "null")
+                    dogModel.breeds = dogModel.breeds.plus(" ").plus(secondary)
+
+                val mixed = breeds.getBoolean("mixed")
+                if (mixed)
+                    dogModel.breeds = dogModel.breeds.plus(" Mix")
+            }
+
+            dogModel.age = jsonObject.getString("age")
+            dogModel.gender = jsonObject.getString("gender")
+            dogModel.size = jsonObject.getString("size")
+
 
             //TODO: Remove
             print("*****\n*\n")

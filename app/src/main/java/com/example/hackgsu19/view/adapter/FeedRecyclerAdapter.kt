@@ -32,6 +32,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         init {
             cardImage = itemView.findViewById(R.id.card_image)
             cardName = itemView.findViewById(R.id.card_name)
+            cardName.elevation = 10f
         }
     }
 
@@ -91,13 +92,17 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                     viewHolder.cardImage.setImageDrawable(dog.image)
                 }
 
-
                 val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
                 cardName.setText(dog.name)
 
                 val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
 //                orgName.setText(dog.organizationId)
 
+                val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
+                breeds.setText(dog.breeds)
+
+                val quickInfo: TextView = popupView.findViewById(R.id.dog_quickinfo)
+                quickInfo.setText(dog.gender?.plus(" ⋅ ").plus(dog.age).plus(" ⋅ ").plus(dog.size))
 
                 // Set an elevation for the popup window
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
