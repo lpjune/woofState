@@ -12,12 +12,16 @@ import android.widget.*
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.view.adapter.ProfileRecyclerAdapter
 import com.example.hackgsu19.R
 import com.facebook.AccessToken
 import com.facebook.Profile
+import com.facebook.ProfileTracker
+import com.squareup.picasso.Picasso
 
 class ProfileFragment: Fragment() {
+    private val adapter = ProfileRecyclerAdapter()
 
     companion object {
         fun newInstance(): ProfileFragment {
@@ -31,7 +35,6 @@ class ProfileFragment: Fragment() {
         val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
         mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
 
-        val adapter = ProfileRecyclerAdapter()
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
 
@@ -55,18 +58,33 @@ class ProfileFragment: Fragment() {
         username.setText(profile.name)
 
         val profilePicture: ImageView = rootView.findViewById(R.id.profile_image)
-        val width = profilePicture.measuredWidth
-        val height = profilePicture.measuredHeight
+        Picasso.with(context).load(profile.getProfilePictureUri(300,300)).placeholder(R.drawable.default_profile_picture).into(profilePicture)
 
-//        val request = GraphRequest.newGraphPathRequest(accessToken,"/{user-id}/picture",
-//            )
-
-        if (width == 0 && height == 0) Toast.makeText(context,"Uh oh. shit",Toast.LENGTH_LONG).show()
-        else profilePicture.setImageURI(profile.getProfilePictureUri(width,height))
-
-
+        fetchDogs()
 
         return rootView
+    }
+
+    private fun fetchDogs(){
+        val dogList = ArrayList<DogModel>()
+        val dogModel = DogModel()
+        dogModel.name = "Spot"
+        dogModel.id = 2
+        dogModel.url = "www.google.com"
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        adapter.setDogs(dogList)
+        adapter.notifyDataSetChanged()
     }
 
     private fun badgeHasBeenClicked(badgeTitle: String, badgeName: String, view: View){

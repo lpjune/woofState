@@ -77,4 +77,5 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.1.0'
     annotationProcessor 'androidx.room:room-compiler:2.1.0'
 
+    implementation 'com.squareup.picasso:picasso:2.5.2'
 }
