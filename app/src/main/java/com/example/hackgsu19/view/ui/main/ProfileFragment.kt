@@ -16,6 +16,8 @@ import com.example.hackgsu19.view.adapter.ProfileRecyclerAdapter
 import com.example.hackgsu19.R
 import com.facebook.AccessToken
 import com.facebook.Profile
+import com.facebook.ProfileTracker
+import com.squareup.picasso.Picasso
 
 class ProfileFragment: Fragment() {
 
@@ -55,16 +57,7 @@ class ProfileFragment: Fragment() {
         username.setText(profile.name)
 
         val profilePicture: ImageView = rootView.findViewById(R.id.profile_image)
-        val width = profilePicture.measuredWidth
-        val height = profilePicture.measuredHeight
-
-//        val request = GraphRequest.newGraphPathRequest(accessToken,"/{user-id}/picture",
-//            )
-
-        if (width == 0 && height == 0) Toast.makeText(context,"Uh oh. shit",Toast.LENGTH_LONG).show()
-        else profilePicture.setImageURI(profile.getProfilePictureUri(width,height))
-
-
+        Picasso.with(context).load(profile.getProfilePictureUri(300,300)).placeholder(R.drawable.default_profile_picture).into(profilePicture)
 
         return rootView
     }
