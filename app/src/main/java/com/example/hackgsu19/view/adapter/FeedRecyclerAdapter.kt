@@ -16,7 +16,6 @@ import com.squareup.picasso.Picasso
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
     private lateinit var context: Context
-    private lateinit var viewHolder: ViewHolder
     private var dogList: ArrayList<DogModel> = ArrayList<DogModel>()
 
 //    private val mCardList = Report.dogCardList
@@ -43,19 +42,13 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ViewHolder {
         val v = LayoutInflater.from(viewGroup.context)
             .inflate(R.layout.card_layout, viewGroup, false)
-        viewHolder = ViewHolder(v)
-        return viewHolder
+        return ViewHolder(v)
     }
 
-    private var testBoolean = true
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         var dog: DogModel = dogList[i]
 
-        if(i >= dogList.size) testBoolean = false
-
-        if(testBoolean){
-            viewHolder.cardName.text = dog.name
-        }
+        viewHolder.cardName.text = dog.name
 
         if (dog.image == null){
             Picasso.with(context)
@@ -79,6 +72,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 popupWindow.isFocusable = true
 
                 val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
+//                To load full image
 //                Picasso.with(context)
 //                    .load(dog.imageUrl)
 //                    .fit()
