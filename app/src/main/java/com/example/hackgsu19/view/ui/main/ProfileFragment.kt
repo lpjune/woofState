@@ -12,6 +12,7 @@ import android.widget.*
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.view.adapter.ProfileRecyclerAdapter
 import com.example.hackgsu19.R
 import com.facebook.AccessToken
@@ -20,6 +21,7 @@ import com.facebook.ProfileTracker
 import com.squareup.picasso.Picasso
 
 class ProfileFragment: Fragment() {
+    private val adapter = ProfileRecyclerAdapter()
 
     companion object {
         fun newInstance(): ProfileFragment {
@@ -33,7 +35,6 @@ class ProfileFragment: Fragment() {
         val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
         mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
 
-        val adapter = ProfileRecyclerAdapter()
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
 
@@ -59,7 +60,31 @@ class ProfileFragment: Fragment() {
         val profilePicture: ImageView = rootView.findViewById(R.id.profile_image)
         Picasso.with(context).load(profile.getProfilePictureUri(300,300)).placeholder(R.drawable.default_profile_picture).into(profilePicture)
 
+        fetchDogs()
+
         return rootView
+    }
+
+    private fun fetchDogs(){
+        val dogList = ArrayList<DogModel>()
+        val dogModel = DogModel()
+        dogModel.name = "Spot"
+        dogModel.id = 2
+        dogModel.url = "www.google.com"
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        dogList.add(dogModel)
+        adapter.setDogs(dogList)
+        adapter.notifyDataSetChanged()
     }
 
     private fun badgeHasBeenClicked(badgeTitle: String, badgeName: String, view: View){

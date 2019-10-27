@@ -10,13 +10,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
+import com.squareup.picasso.Picasso
 
 
 class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHolder>() {
 
-//    private val mProfileList = DogModel.profileCardList
+//    private val mDogList = DogModel.profileCardList
+    private var mDogList = ArrayList<DogModel>()
     private lateinit var context: Context
 
+    fun setDogs(dogs: ArrayList<DogModel>){
+        mDogList = dogs
+    }
+    
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var cardImage: ImageView
         var cardName: TextView
@@ -38,9 +44,11 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHo
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        val mProfileList = ArrayList<DogModel>()
-        var mReport: DogModel = mProfileList[i]
-        viewHolder.cardName.text = mReport.name
+        var dog: DogModel = mDogList[i]
+        viewHolder.cardName.text = dog.name
+
+        //TODO: Get data from database and change placeholder image
+        Picasso.with(context).load(R.drawable.bannanabread).placeholder(R.drawable.calendar_icon).into(viewHolder.cardImage)
 
         viewHolder.cardImage.setOnClickListener{
             context?.let {
@@ -51,33 +59,18 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHo
                 popupWindow.isFocusable = true
 
                 val imageView: ImageView = popupView.findViewById<ImageView>(R.id.dog_image_expanded)
-//                imageView.setImageResource(mReport.image)
+                imageView.setImageDrawable(viewHolder.cardImage.drawable)
 
                 val cardName: TextView = popupView.findViewById<TextView>(R.id.dog_name_expanded)
-                cardName.setText(mReport.name)
+                cardName.setText(dog.name)
 
                 val orgName: TextView = popupView.findViewById<TextView>(R.id.dog_shelter_name)
-//                orgName.setText(mReport.org)
+//                orgName.setText(dog.org)
 
 
                 // Set an elevation for the popup window
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     popupWindow.elevation = 10.0F
-                }
-
-
-                // If API level 23 or higher then execute the code
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    // Create a new slide animation for popup window enter transition
-                    val slideIn = Slide()
-                    slideIn.slideEdge = Gravity.TOP
-                    popupWindow.enterTransition = slideIn
-
-                    // Slide animation for popup window exit transition
-                    val slideOut = Slide()
-                    slideOut.slideEdge = Gravity.RIGHT
-                    popupWindow.exitTransition = slideOut
-
                 }
 
                 popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
@@ -87,7 +80,6 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<ProfileRecyclerAdapter.ViewHo
 
 
     override fun getItemCount(): Int {
-        val mProfileList = ArrayList<DogModel>()
-        return mProfileList.size
+        return mDogList.size
     }
 }
