@@ -12,8 +12,14 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import android.content.pm.PackageManager
+import android.widget.Toast
+import com.example.hackgsu19.OrgModel
 import com.example.hackgsu19.R
+import com.example.hackgsu19.api.OrgClient
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.loopj.android.http.JsonHttpResponseHandler
+import cz.msebera.android.httpclient.Header
+import org.json.JSONObject
 
 
 class MapFragment:  Fragment(), OnMapReadyCallback{
@@ -78,5 +84,34 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         if (requestCode == 101 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             doShowLocation()
         }
+    }
+
+    private fun fetchOrgs(){
+        val client = OrgClient()
+        client.getOrgs(object: JsonHttpResponseHandler(){
+            override fun onSuccess(
+                statusCode: Int,
+                headers: Array<out cz.msebera.android.httpclient.Header>?,
+                response: JSONObject?
+            ) {
+                val items = response?.getJSONArray("organizations")
+                if (items != null) {
+                    val orgs = OrgModel.fromJSON(items)
+                }
+                Toast.makeText(context,items?.toString(), Toast.LENGTH_LONG).show()
+                print(items)
+                super.onSuccess(statusCode, headers, response)
+            }
+
+            override fun onFailure(
+                statusCode: Int,
+                headers: Array<out Header>?,
+                responseString: String?,
+                throwable: Throwable?
+            ) {
+                Toast.makeText(context,"Fix token: " + responseString,Toast.LENGTH_LONG).show()
+                super.onFailure(statusCode, headers, responseString, throwable)
+            }
+        })
     }
 }
