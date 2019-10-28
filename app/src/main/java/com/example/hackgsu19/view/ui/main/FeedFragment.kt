@@ -52,7 +52,7 @@ class FeedFragment: Fragment() {
         client.getAnimals(object: JsonHttpResponseHandler(){
             override fun onSuccess(
                 statusCode: Int,
-                headers: Array<out cz.msebera.android.httpclient.Header>?,
+                headers: Array<out Header>?,
                 response: JSONObject?
             ) {
                 val items = response?.getJSONArray("animals")
@@ -62,7 +62,6 @@ class FeedFragment: Fragment() {
                     myAdapter.notifyDataSetChanged()
                 }
                 Toast.makeText(context,items?.toString(), Toast.LENGTH_LONG).show()
-                print(items)
                 super.onSuccess(statusCode, headers, response)
             }
 

@@ -1,5 +1,6 @@
 package com.example.hackgsu19
 
+import android.graphics.drawable.Drawable
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -8,8 +9,12 @@ class DogModel {
     var name:String? = null
 //    var organizationId: String? = null
     var url: String? = null
-    var type: String? = null
-    var species: String? = null
+    var imageUrl: String? = null
+    var image: Drawable? = null
+    var breeds: String? = null
+    var age: String? = null
+    var gender: String? = null
+    var size: String? = null
     //TODO: Breeds, Colors,
 
 
@@ -22,7 +27,35 @@ class DogModel {
 //            dogModel.organizationId = jsonObject.getString("organzation_id")
             dogModel.url = jsonObject.getString("url")
 
-            print(dogModel.name + "\n\n\n\n")
+            val photos: JSONArray = jsonObject.getJSONArray("photos")
+            if(photos.length() > 0) {
+                val photo: JSONObject = photos[0] as JSONObject
+                dogModel.imageUrl = photo.getString("full")
+            }
+
+            val breeds: JSONObject = jsonObject.getJSONObject("breeds")
+            if(breeds.getBoolean("unknown"))
+                dogModel.breeds = "Unknown"
+            else{
+                dogModel.breeds = breeds.getString("primary")
+                val secondary = breeds.getString("secondary")
+                if (secondary != "null")
+                    dogModel.breeds = dogModel.breeds.plus(" ").plus(secondary)
+
+                val mixed = breeds.getBoolean("mixed")
+                if (mixed)
+                    dogModel.breeds = dogModel.breeds.plus(" Mix")
+            }
+
+            dogModel.age = jsonObject.getString("age")
+            dogModel.gender = jsonObject.getString("gender")
+            dogModel.size = jsonObject.getString("size")
+
+
+            //TODO: Remove
+            print("*****\n*\n")
+            print(dogModel.name + "  " + photos.toString())
+            print("*****\n*\n")
 
             return dogModel
         }

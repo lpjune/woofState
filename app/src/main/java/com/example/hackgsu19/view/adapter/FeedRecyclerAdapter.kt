@@ -1,6 +1,7 @@
 package com.example.hackgsu19.view.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.transition.Slide
 import android.view.*
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
@@ -28,6 +31,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
         init {
             cardImage = itemView.findViewById(R.id.card_image)
             cardName = itemView.findViewById(R.id.card_name)
+            cardName.elevation = 10f
         }
     }
 
@@ -43,19 +47,44 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
         var dog: DogModel = dogList[i]
+
         viewHolder.cardName.text = dog.name
-//        viewHolder.cardImage.setImageResource(mReport.image)
+
+        if (dog.image == null){
+            Picasso.with(context)
+                .load(dog.imageUrl)
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.dogplaceholder)
+                .into(viewHolder.cardImage)
+
+            viewHolder.cardImage.setBackgroundColor(Color.CYAN)
+        } else {
+            viewHolder.cardImage.setImageDrawable(dog.image)
+        }
 
         viewHolder.cardImage.setOnClickListener{
             context.let {
 
                 val popupView = LayoutInflater.from(context).inflate(R.layout.dog_popup, null)
                 val popupWindow =
-                    PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+                    PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
                 popupWindow.isFocusable = true
 
                 val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
-//                imageView.setImageResource(mReport.image)
+//                To load full image
+//                Picasso.with(context)
+//                    .load(dog.imageUrl)
+//                    .fit()
+//                    .centerInside()
+//                    .placeholder(R.drawable.dogplaceholder)
+//                    .into(imageView)
+                imageView.setImageDrawable(viewHolder.cardImage.drawable)
+
+                if (imageView.drawable == null){
+                    viewHolder.cardImage.setBackgroundColor(Color.CYAN)
+                    viewHolder.cardImage.setImageDrawable(dog.image)
+                }
 
                 val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
                 cardName.setText(dog.name)
@@ -63,25 +92,15 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
 //                orgName.setText(dog.organizationId)
 
+                val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
+                breeds.setText(dog.breeds)
+
+                val quickInfo: TextView = popupView.findViewById(R.id.dog_quickinfo)
+                quickInfo.setText(dog.gender?.plus(" ⋅ ").plus(dog.age).plus(" ⋅ ").plus(dog.size))
 
                 // Set an elevation for the popup window
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     popupWindow.elevation = 10.0F
-                }
-
-
-                // If API level 23 or higher then execute the code
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    // Create a new slide animation for popup window enter transition
-                    val slideIn = Slide()
-                    slideIn.slideEdge = Gravity.TOP
-                    popupWindow.enterTransition = slideIn
-
-                    // Slide animation for popup window exit transition
-                    val slideOut = Slide()
-                    slideOut.slideEdge = Gravity.RIGHT
-                    popupWindow.exitTransition = slideOut
-
                 }
 
                 popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
