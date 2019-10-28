@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -108,8 +110,12 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
                 val fab = popupView.findViewById<FloatingActionButton>(R.id.fab)
                 fab.setOnClickListener {
-                    popupWindow.dismiss()
+//                    popupWindow.dismiss()
 //                    openWalkADog(context, dog.name )
+                    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+                    val myRef: DatabaseReference = database.getReference("users")
+
+                    myRef.setValue("Testing")
                 }
             }
         }
