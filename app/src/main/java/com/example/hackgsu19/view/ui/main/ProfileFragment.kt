@@ -38,8 +38,6 @@ class ProfileFragment: Fragment() {
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
 
-        val accessToken = AccessToken.getCurrentAccessToken()
-
         val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
         badge1.setOnClickListener { badgeHasBeenClicked("7 day streak Badge","Congratulations! You have a 7 day walking streak!",rootView) }
 

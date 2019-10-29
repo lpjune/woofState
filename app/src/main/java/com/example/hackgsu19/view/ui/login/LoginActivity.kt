@@ -9,9 +9,12 @@ import com.facebook.login.LoginResult
 import com.facebook.login.widget.LoginButton
 import java.util.*
 import android.content.Intent
+import android.util.Log
 import com.example.hackgsu19.R
+import com.example.hackgsu19.User
 import com.example.hackgsu19.view.ui.main.MainActivity
 import com.facebook.*
+import com.google.firebase.database.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -36,24 +39,47 @@ class LoginActivity : AppCompatActivity() {
         val EMAIL = "email"
 
         val loginButton = findViewById<LoginButton>(R.id.login_button)
-        loginButton.setReadPermissions(Arrays.asList(EMAIL))
+        loginButton.setPermissions(Arrays.asList(EMAIL))
         // If you are using in a fragment, call loginButton.setFragment(this);
 
         // Callback registration
         loginButton.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-                val myIntent = Intent(baseContext, MainActivity::class.java)
-                startActivity(myIntent)
             }
 
             override fun onCancel() {
-                // App code
             }
 
             override fun onError(exception: FacebookException) {
-                // App code
             }
         })
+
+        val profileTracker = object : ProfileTracker(){
+            override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile?) {
+                if(currentProfile != null){
+                    val database = FirebaseDatabase.getInstance().reference
+                    database.child("users").child(currentProfile.id).addListenerForSingleValueEvent(object: ValueEventListener{
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            val user = dataSnapshot.getValue(User::class.java)
+
+                            if (user == null) {
+                                val newUser = User(currentProfile.firstName,currentProfile.lastName)
+                                database.child("users").child(currentProfile.id).setValue(newUser)
+                            }
+
+                            val pictureUri: String = currentProfile.getProfilePictureUri(300,300).toString()
+                            database.child("users").child(currentProfile.id).child("profilePictureURL").setValue(pictureUri)
+                        }
+                        override fun onCancelled(databaseError: DatabaseError) {
+                            Log.w("uh oh", "loadPost:onCancelled", databaseError.toException())
+                        }
+                    })
+
+                    val myIntent = Intent(baseContext, MainActivity::class.java)
+                    startActivity(myIntent)
+                }
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
