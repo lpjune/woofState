@@ -1,13 +1,19 @@
 package com.example.hackgsu19.view.ui.main
 
+import android.accounts.AccountManager
+import android.accounts.AccountManagerCallback
+import android.accounts.AccountManagerFuture
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import 	androidx.appcompat.widget.Toolbar
 import com.example.hackgsu19.R
+import com.example.hackgsu19.api.DogClient
+import com.example.hackgsu19.api.OrgClient
 import com.example.hackgsu19.view.ui.login.LoginActivity
 import com.facebook.login.LoginManager
 import com.google.android.material.tabs.TabLayout
@@ -150,6 +156,7 @@ class MainActivity : AppCompatActivity() {
 //        )
 
 //        pager.adapter = adapter
+        val dogClient: DogClient
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -217,6 +224,34 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    fun requestPfToken(dogClient: DogClient, orgClient: OrgClient) {
+        val am: AccountManager = AccountManager.get(this)
+        val options = Bundle()
+
+        am.getAuthToken(
+            myAccount_,                     // Account retrieved using getAccountsByType()
+            API_BASE_URL,                   // Auth scope
+            options,                        // Authenticator-specific options
+            this,                    // Your activity
+            OnTokenAcquired(),              // Callback called when a token is successfully acquired
+            Handler(OnError())              // Callback called if an error occurs
+        )
+
+        class OnTokenAcquired : AccountManagerCallback<Bundle> {
+
+            override fun run(result: AccountManagerFuture<Bundle>) {
+                // Get the result of the operation from the AccountManagerFuture.
+                val bundle: Bundle = result.getResult()
+
+                // The token is a named value in the bundle. The name of the value
+                // is stored in the constant AccountManager.KEY_AUTHTOKEN.
+                val token: String = bundle.getString(AccountManager.KEY_AUTHTOKEN)
+                dogClient.setToken(token)
+                orgClient.setToken(token)
+            }
+        }
     }
 
 }
