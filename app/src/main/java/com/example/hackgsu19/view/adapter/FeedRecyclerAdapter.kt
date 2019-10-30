@@ -6,6 +6,8 @@ import android.os.Build
 import android.transition.Slide
 import android.view.*
 import android.widget.*
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
@@ -60,7 +62,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 .placeholder(R.drawable.dogplaceholder)
                 .into(viewHolder.cardImage)
 
-            viewHolder.cardImage.setBackgroundColor(Color.CYAN)
+            viewHolder.cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimaryLight))
         } else {
             viewHolder.cardImage.setImageDrawable(dog.image)
         }
@@ -74,6 +76,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 popupWindow.isFocusable = true
 
                 val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
+                imageView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
 //                To load full image
 //                Picasso.with(context)
 //                    .load(dog.imageUrl)
@@ -108,7 +111,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
 
 
-                val fab = popupView.findViewById<FloatingActionButton>(R.id.fab)
+                val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
                 fab.setOnClickListener {
 //                    popupWindow.dismiss()
 //                    openWalkADog(context, dog.name )
