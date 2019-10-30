@@ -5,7 +5,7 @@ import com.loopj.android.http.JsonHttpResponseHandler
 import com.loopj.android.http.RequestParams
 
 class DogClient {
-    private val accessToken: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImUzZjVkNGM1MmY4MzI4YzQxOWI0ZDlkMzIwZTYwODI3YzAzMGMxYTkyNGVkZTQ0ZGE4NWEwY2NjM2MwY2Y5ZTllZDBiMmNlZTk5NGI5ZjI2In0.eyJhdWQiOiJqaGh6bEZSa0dmT041VEtpcDR0RFNWVDhsaURTUW94VksxZ05IVUhnazBoOHR1SDA5RiIsImp0aSI6ImUzZjVkNGM1MmY4MzI4YzQxOWI0ZDlkMzIwZTYwODI3YzAzMGMxYTkyNGVkZTQ0ZGE4NWEwY2NjM2MwY2Y5ZTllZDBiMmNlZTk5NGI5ZjI2IiwiaWF0IjoxNTcyMzc4MzU0LCJuYmYiOjE1NzIzNzgzNTQsImV4cCI6MTU3MjM4MTk1NCwic3ViIjoiIiwic2NvcGVzIjpbXX0.AtYTrMVjMjbWp0plwhXAjeevZdt2AajofKjpI97xG3D9uLjjkuMZ524ShANiArAIr0l8tCZfcNaQ7eFMnX21DRB7eXJ6E8CxfOw4L517YlwbklmQkSk5tVZU4wm6bXpcBa6sz-jijiG4nL1CQ8tZuRCjbNiDsFbHlFCiGJgDfdOZzuExQQX5JU_-iaBFt_ImscWlGztAxY74gIqSgg4yVh-c0TxRuOdr4O8gNWtKz1tuU--Bvndobxe7njLEnPMDiD4bL2xvTsTN4ojMTpeHkKdfEbrGrFL6LYANvyLg2BBcogrTlzNp05CgK1dxPRkIJk95mBpmwmuj9C7tYKczzg"
+    private val accessToken: String = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjJhZGY5MDc0NDMzM2Y2MDdmYTM5MWNmYzBkZTBhOGUxOGU0OTFhYTU0NjJiMWZiZGNmZjYxZDE2ZGZhNzkxNGVlOGU2MWY1NGUxNzJiNmRmIn0.eyJhdWQiOiJqaGh6bEZSa0dmT041VEtpcDR0RFNWVDhsaURTUW94VksxZ05IVUhnazBoOHR1SDA5RiIsImp0aSI6IjJhZGY5MDc0NDMzM2Y2MDdmYTM5MWNmYzBkZTBhOGUxOGU0OTFhYTU0NjJiMWZiZGNmZjYxZDE2ZGZhNzkxNGVlOGU2MWY1NGUxNzJiNmRmIiwiaWF0IjoxNTcyNDAzMzM3LCJuYmYiOjE1NzI0MDMzMzcsImV4cCI6MTU3MjQwNjkzNywic3ViIjoiIiwic2NvcGVzIjpbXX0.LMRMLdcrICEZVEntzexLToWfk4K3KelEBn0nxeeXbJMQpCIXgMCWwdHZakCi1ncmD0ObcQhm3Uq3uz6U6DiRZQ1hQqnh9U3mYaSXZQWra8mYjqFcytMRnsL8Ed7dNqg9b0PKOoDToeBogP8DpKnf5tac3xvaO5E9wF6uWTlH9vMH6N6UAQYSQqBkxlXobEdNDsDZ2-9QKCYBiz6FomHfucMd_JHEDP1gphlryjxTh9vv8Dr6RGQCrvFWgVUFVRgMBTtl8tnNNSRhAmoDrJEcZpA1tPs-a9dgwzRLShfewutm_F1eBL8ByvTFtxpCdZsNVosteJo1A7yCYod0ZEufsg"
     private var client: AsyncHttpClient? = null
 
     private val API_BASE_URL: String = "https://api.petfinder.com/v2"
@@ -45,24 +45,4 @@ class DogClient {
     fun getSingleOrganizationUrl(id: String): String {
         return API_ORGANIZATION_URL + id
     }
-
-//    fun getToken(callback: ()-> Void){
-//        val database = FirebaseDatabase.getInstance().reference
-//        database.child("petfinderToken").addListenerForSingleValueEvent(object:
-//            ValueEventListener {
-//            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                val token: PetfinderToken? = dataSnapshot.getValue(PetfinderToken::class.java)
-//                if (token != null){
-////                    accessToken = token.tokenString
-//                    print("*\n*\n*\n*\n")
-//                    print(accessToken)
-//                    callback()
-//                }
-//            }
-//            override fun onCancelled(databaseError: DatabaseError) {
-//                Log.w("uh oh", "loadPost:onCancelled", databaseError.toException())
-//            }
-//        })
-//    }
-
 }

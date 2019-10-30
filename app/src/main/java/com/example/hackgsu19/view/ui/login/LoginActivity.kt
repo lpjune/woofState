@@ -11,7 +11,7 @@ import java.util.*
 import android.content.Intent
 import android.util.Log
 import com.example.hackgsu19.R
-import com.example.hackgsu19.User
+import com.example.hackgsu19.UserModel
 import com.example.hackgsu19.view.ui.main.MainActivity
 import com.facebook.*
 import com.google.firebase.database.*
@@ -60,10 +60,10 @@ class LoginActivity : AppCompatActivity() {
                     val database = FirebaseDatabase.getInstance().reference
                     database.child("users").child(currentProfile.id).addListenerForSingleValueEvent(object: ValueEventListener{
                         override fun onDataChange(dataSnapshot: DataSnapshot) {
-                            val user = dataSnapshot.getValue(User::class.java)
+                            val user = dataSnapshot.getValue(UserModel::class.java)
 
                             if (user == null) {
-                                val newUser = User(currentProfile.firstName,currentProfile.lastName)
+                                val newUser = UserModel(currentProfile.firstName,currentProfile.lastName)
                                 database.child("users").child(currentProfile.id).setValue(newUser)
                             }
 

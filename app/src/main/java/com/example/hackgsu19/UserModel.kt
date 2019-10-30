@@ -4,7 +4,7 @@ import android.net.Uri
 import com.google.firebase.database.IgnoreExtraProperties
 
 @IgnoreExtraProperties
-data class User(
+data class UserModel(
     var firstname: String? = "",
     var lastname: String? =  "",
     var likes: String = "",
