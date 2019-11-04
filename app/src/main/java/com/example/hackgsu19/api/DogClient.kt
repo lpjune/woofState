@@ -28,33 +28,6 @@ class DogClient {
         this.token = tok
     }
 
-    fun requestPfToken(dogClient: DogClient, orgClient: OrgClient) {
-        val am: AccountManager = AccountManager.get()
-        val options = Bundle()
-
-        am.getAuthToken(
-            myAccount,                      // Account retrieved using getAccountsByType()
-            API_BASE_URL,                   // Auth scope
-            options,                        // Authenticator-specific options
-            this,                           // Your activity
-            OnTokenAcquired(),              // Callback called when a token is successfully acquired
-            Handler(OnError())              // Callback called if an error occurs
-        )
-
-        class OnTokenAcquired : AccountManagerCallback<Bundle> {
-
-            override fun run(result: AccountManagerFuture<Bundle>) {
-                // Get the result of the operation from the AccountManagerFuture.
-                val bundle: Bundle = result.getResult()
-
-                // The token is a named value in the bundle. The name of the value
-                // is stored in the constant AccountManager.KEY_AUTHTOKEN.
-                val token: String = bundle.getString(AccountManager.KEY_AUTHTOKEN)
-                dogClient.setToken(token)
-                orgClient.setToken(token)
-            }
-        }
-
     fun getAnimals(handler: JsonHttpResponseHandler){
         val url = getApiUrl(API_ANIMALS_URL)
         print(url)
@@ -75,5 +48,4 @@ class DogClient {
     fun getAnimalUrl(id: String): String{
         return API_ANIMALS_URL + id
     }
-}
 }
