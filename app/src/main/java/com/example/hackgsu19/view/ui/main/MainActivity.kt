@@ -1,12 +1,13 @@
 package com.example.hackgsu19.view.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import 	androidx.appcompat.widget.Toolbar
+import    androidx.appcompat.widget.Toolbar
 import com.example.hackgsu19.R
 import com.example.hackgsu19.api.DogClient
 import com.example.hackgsu19.api.OrgClient
@@ -19,6 +20,7 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import android.util.Log
+import com.example.hackgsu19.api.Token
 import org.json.JSONObject
 
 
@@ -35,38 +37,41 @@ class MainActivity : AppCompatActivity() {
 //            supportFragmentManager, 3
 //        )
 
-//        pager.adapter = adapter
+        //        pager.adapter = adapter
+        val tokenClass = Token(this.applicationContext)
+        tokenClass.requestAccessToken()
+//        var token = Token.accessToken
 
 
-        val TOKENURL = "https://api.petfinder.com/v2/oauth2/token"
-        val CLIENTID = "jhhzlFRkGfON5TKip4tDSVT8liDSQoxVK1gNHUHgk0h8tuH09F"
-        val CLIENTSECRET = "XwBXuKoTwn5YUqDqwA7MTbJJRWRa3SkPIWpqy0Os"
-        val request = object : StringRequest(Request.Method.POST, TOKENURL,
-            Response.Listener { response ->
-                Log.e("Success Response: ", response.toString())
-                val obj = JSONObject(response)
-                val token: String = obj.getString("access_token")
-                Log.e("Actual Token: ", token)
-                val dogClient = DogClient().setToken(token)
-                val orgClient = OrgClient().setToken(token)
-            },
-            Response.ErrorListener { error -> Log.e("Error Response = ", error.toString()) }) {
-            override fun getParams(): Map<String, String> {
-                val params = HashMap<String, String>()
-                params.put("grant_type", "client_credentials")
-                params.put("client_id", CLIENTID)
-                params.put("client_secret", CLIENTSECRET)
-                return params
-            }
-            @Override
-            override fun getHeaders(): Map<String, String> {
-                val headers= HashMap<String,String>()
-                headers.put("Accept","application/json")
-                headers.put("Content-Type","application/x-www-form-urlencoded")
-                return headers
-            }
-        }
-        Volley.newRequestQueue(this).add(request)
+//        val TOKENURL = "https://api.petfinder.com/v2/oauth2/token"
+//        val CLIENTID = "jhhzlFRkGfON5TKip4tDSVT8liDSQoxVK1gNHUHgk0h8tuH09F"
+//        val CLIENTSECRET = "XwBXuKoTwn5YUqDqwA7MTbJJRWRa3SkPIWpqy0Os"
+//        val request = object : StringRequest(Request.Method.POST, TOKENURL,
+//            Response.Listener { response ->
+//                Log.e("Success Response: ", response.toString())
+//                val obj = JSONObject(response)
+//                val token: String = obj.getString("access_token")
+//                Log.e("Actual Token: ", token)
+//                val dogClient = DogClient().setToken(token)
+//                val orgClient = OrgClient().setToken(token)
+//            },
+//            Response.ErrorListener { error -> Log.e("Error Response = ", error.toString()) }) {
+//            override fun getParams(): Map<String, String> {
+//                val params = HashMap<String, String>()
+//                params.put("grant_type", "client_credentials")
+//                params.put("client_id", CLIENTID)
+//                params.put("client_secret", CLIENTSECRET)
+//                return params
+//            }
+//            @Override
+//            override fun getHeaders(): Map<String, String> {
+//                val headers= HashMap<String,String>()
+//                headers.put("Accept","application/json")
+//                headers.put("Content-Type","application/x-www-form-urlencoded")
+//                return headers
+//            }
+//        }
+//        Volley.newRequestQueue(this).add(request)
 
     }
 
@@ -98,7 +103,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun switchFragment(fragIndex: Int){
+    fun switchFragment(fragIndex: Int) {
         if (fragIndex < 4)
             pager.currentItem = fragIndex
         else
@@ -137,8 +142,7 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-//    fun requestAccessToken(dogClient: DogClient, orgClient: OrgClient) {
-//
+//    fun requestAccessToken() {
 //        val TOKENURL = "https://api.petfinder.com/v2/oauth2/token"
 //        val CLIENTID = "jhhzlFRkGfON5TKip4tDSVT8liDSQoxVK1gNHUHgk0h8tuH09F"
 //        val CLIENTSECRET = "XwBXuKoTwn5YUqDqwA7MTbJJRWRa3SkPIWpqy0Os"
@@ -148,7 +152,6 @@ class MainActivity : AppCompatActivity() {
 //                val obj = JSONObject(response)
 //                val token: String = obj.getString("access_token")
 //                Log.e("Actual Token: ", token)
-//
 //                },
 //            Response.ErrorListener { error -> Log.e("Error Response = ", error.toString()) }) {
 //            override fun getParams(): Map<String, String> {
@@ -160,13 +163,15 @@ class MainActivity : AppCompatActivity() {
 //            }
 //            @Override
 //        override fun getHeaders(): Map<String, String> {
-//                val headers= HashMap<String,String>();
-//            headers.put("Accept","application/json");
+//                val headers= HashMap<String,String>()
+//            headers.put("Accept","application/json")
 //            headers.put("Content-Type","application/x-www-form-urlencoded");
-//            return headers;
+//            return headers
 //        }
 //        }
 //        Volley.newRequestQueue(this).add(request)
 //    }
 
 }
+
+
