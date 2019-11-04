@@ -18,10 +18,14 @@ import com.example.hackgsu19.R
 import com.facebook.AccessToken
 import com.facebook.Profile
 import com.facebook.ProfileTracker
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 
 class ProfileFragment: Fragment() {
     private val adapter = ProfileRecyclerAdapter()
+    private val database = FirebaseDatabase.getInstance().reference
+    private val profile = Profile.getCurrentProfile()
+    private val dogList = ArrayList<DogModel>()
 
     companion object {
         fun newInstance(): ProfileFragment {
@@ -58,31 +62,79 @@ class ProfileFragment: Fragment() {
         val profilePicture: ImageView = rootView.findViewById(R.id.profile_image)
         Picasso.with(context).load(profile.getProfilePictureUri(300,300)).placeholder(R.drawable.default_profile_picture).into(profilePicture)
 
+        dogList.clear()
         fetchDogs()
 
         return rootView
     }
 
     private fun fetchDogs(){
-        val dogList = ArrayList<DogModel>()
         val dogModel = DogModel()
         dogModel.name = "Spot"
         dogModel.id = 2
         dogModel.url = "www.google.com"
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
-        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+//        dogList.add(dogModel)
+
+
+        database.child("users").child(profile.id).child("likes").addChildEventListener(object: ChildEventListener {
+            override fun onCancelled(databaseError: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildMoved(dataSnapshot: DataSnapshot, p1: String?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, p1: String?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {
+                val isLiked = dataSnapshot.getValue(Boolean::class.java)
+                if (isLiked != null && isLiked == true)
+                    getDogInfo(dataSnapshot.key!!)
+                print("\n*\n*\n*\n")
+                print(dataSnapshot.key)
+            }
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+
         adapter.setDogs(dogList)
         adapter.notifyDataSetChanged()
+    }
+
+    private fun getDogInfo(id: String){
+        database.child("dogs").child(id).addValueEventListener(object: ValueEventListener{
+            override fun onCancelled(databaseError: DatabaseError) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val dog: DogModel? = dataSnapshot.getValue(DogModel::class.java)
+                print("ON DATA CHANGED *\n*\n*\n*")
+                if (dog != null) {
+                    dogList.add(dog)
+                    adapter.notifyDataSetChanged()
+                    print(dogList.size)
+                    print(dogList)
+                    print("c\nc\nc\n")
+                }
+            }
+        })
     }
 
     private fun badgeHasBeenClicked(badgeTitle: String, badgeName: String, view: View){

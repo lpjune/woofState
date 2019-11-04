@@ -111,7 +111,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
                         }
                     })
-
+                    database.child("dogs").child(dog.id.toString()).setValue(dog)
                 }
 
                 val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)

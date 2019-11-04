@@ -7,6 +7,6 @@ import com.google.firebase.database.IgnoreExtraProperties
 data class UserModel(
     var firstname: String? = "",
     var lastname: String? =  "",
-    var likes: String = "",
-    var profilePictureURL: String = ""
+    var profilePictureURL: String = "",
+    var likes: MutableMap<String, Boolean> = HashMap()
 )
