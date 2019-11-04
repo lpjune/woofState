@@ -25,7 +25,7 @@
                 />
 
         <ImageView
-                android:id="@+id/floatingActionButton"
+                android:id="@+id/likeButton"
                 android:layout_margin="4dp"
                 android:layout_width="36dp"
                 android:layout_height="36dp"

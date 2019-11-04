@@ -11,9 +11,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
+import com.facebook.Profile
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -21,6 +21,8 @@ import com.squareup.picasso.Picasso
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
     private lateinit var context: Context
     private var dogList: ArrayList<DogModel> = ArrayList<DogModel>()
+    private val database = FirebaseDatabase.getInstance().reference
+    private val profile: Profile = Profile.getCurrentProfile()
 
 //    private val mCardList = Report.dogCardList
 
@@ -89,6 +91,27 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 if (imageView.drawable == null){
                     viewHolder.cardImage.setBackgroundColor(Color.CYAN)
                     viewHolder.cardImage.setImageDrawable(dog.image)
+                }
+
+                val likeButton: ImageView = popupView.findViewById(R.id.likeButton)
+                likeButton.setOnClickListener {
+                    database.child("users").child(profile.id).child("likes").child(dog.id.toString()).addListenerForSingleValueEvent(object: ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (dataSnapshot.value == true) {
+                                print("DOG IS UNLIKED")
+                                database.child("users").child(profile.id).child("likes").child(dog.id.toString()).setValue(false)
+                                likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_24dp))
+                            } else {
+                                print("DOG IS LIKED")
+                                database.child("users").child(profile.id).child("likes").child(dog.id.toString()).setValue(true)
+                                likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_24dp))
+                            }
+                        }
+                        override fun onCancelled(databaseError: DatabaseError) {
+
+                        }
+                    })
+
                 }
 
                 val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
