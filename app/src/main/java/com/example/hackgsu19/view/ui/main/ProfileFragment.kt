@@ -37,7 +37,7 @@ class ProfileFragment: Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_profile, container, false)
 
         val mProfileRecyclerView = rootView.findViewById(R.id.profile_recycler) as RecyclerView // Add this
-        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+        mProfileRecyclerView.layoutManager = GridLayoutManager(activity, 1)
 
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
@@ -69,24 +69,6 @@ class ProfileFragment: Fragment() {
     }
 
     private fun fetchDogs(){
-        val dogModel = DogModel()
-        dogModel.name = "Spot"
-        dogModel.id = 2
-        dogModel.url = "www.google.com"
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-//        dogList.add(dogModel)
-
-
         database.child("users").child(profile.id).child("likes").addChildEventListener(object: ChildEventListener {
             override fun onCancelled(databaseError: DatabaseError) {
                 TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -114,7 +96,7 @@ class ProfileFragment: Fragment() {
         })
 
         adapter.setDogs(dogList)
-        adapter.notifyDataSetChanged()
+//        adapter.notifyDataSetChanged()
     }
 
     private fun getDogInfo(id: String){
@@ -128,7 +110,7 @@ class ProfileFragment: Fragment() {
                 print("ON DATA CHANGED *\n*\n*\n*")
                 if (dog != null) {
                     dogList.add(dog)
-                    adapter.notifyDataSetChanged()
+                    adapter.notifyItemInserted(dogList.size-1)
                     print(dogList.size)
                     print(dogList)
                     print("c\nc\nc\n")
