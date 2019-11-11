@@ -27,7 +27,7 @@ class Token {
             Token.accessToken = token
         }
 
-        fun requestAccessToken() {
+        fun requestAccessToken(callback:()->Unit) {
             val TOKENURL = "https://api.petfinder.com/v2/oauth2/token"
             val CLIENTID = "jhhzlFRkGfON5TKip4tDSVT8liDSQoxVK1gNHUHgk0h8tuH09F"
             val CLIENTSECRET = "XwBXuKoTwn5YUqDqwA7MTbJJRWRa3SkPIWpqy0Os"
@@ -39,6 +39,7 @@ class Token {
                     val token: String = obj.getString("access_token")
                     Log.e("Actual Token: ", token)
                     this.setToken(token)
+                    callback()
                 },
                 Response.ErrorListener { error -> Log.e("Error Response = ", error.toString()) }) {
                 override fun getParams(): Map<String, String> {

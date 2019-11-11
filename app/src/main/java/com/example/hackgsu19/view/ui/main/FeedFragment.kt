@@ -33,6 +33,12 @@ class FeedFragment: Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        val tokenClass = Token(this.requireContext())
+        tokenClass.requestAccessToken(this::fetchDogs)
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_feed, container, false)
 
@@ -45,10 +51,10 @@ class FeedFragment: Fragment() {
         mMapFAB.setOnClickListener {
             (activity as MainActivity).switchFragment(1)
         }
-        val tokenClass = Token(this.requireContext())
-        tokenClass.requestAccessToken()
+
         print("HERE3" + Token.accessToken)
-        fetchDogs()
+//        fetchDogs()
+
         return rootView
     }
 
@@ -67,7 +73,8 @@ class FeedFragment: Fragment() {
                     myAdapter.setDogs(dogs)
                     myAdapter.notifyDataSetChanged()
                 }
-                Toast.makeText(context,items?.toString(), Toast.LENGTH_LONG).show()
+//                Toast.makeText(context,items?.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(context, items?.length().toString().plus(" items loaded"), Toast.LENGTH_LONG).show()
                 super.onSuccess(statusCode, headers, response)
             }
 
