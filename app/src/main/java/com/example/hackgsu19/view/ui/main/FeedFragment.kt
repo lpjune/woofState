@@ -1,5 +1,6 @@
 package com.example.hackgsu19.view.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.example.hackgsu19.R
 import 	androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.api.DogClient
+import com.example.hackgsu19.api.Token
 import com.example.hackgsu19.view.adapter.FeedRecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.JsonHttpResponseHandler
@@ -43,12 +45,16 @@ class FeedFragment: Fragment() {
         mMapFAB.setOnClickListener {
             (activity as MainActivity).switchFragment(1)
         }
+        val tokenClass = Token(this.requireContext())
+        tokenClass.requestAccessToken()
+        print("HERE3" + Token.accessToken)
         fetchDogs()
         return rootView
     }
 
     private fun fetchDogs(){
         val client = DogClient()
+        print("HERE")
         client.getAnimals(object: JsonHttpResponseHandler(){
             override fun onSuccess(
                 statusCode: Int,

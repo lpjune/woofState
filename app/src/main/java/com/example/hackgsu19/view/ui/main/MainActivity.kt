@@ -1,142 +1,30 @@
 package com.example.hackgsu19.view.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import 	androidx.appcompat.widget.Toolbar
+import    androidx.appcompat.widget.Toolbar
 import com.example.hackgsu19.R
+import com.example.hackgsu19.api.DogClient
+import com.example.hackgsu19.api.OrgClient
 import com.example.hackgsu19.view.ui.login.LoginActivity
 import com.facebook.login.LoginManager
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.tab_layout.*
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import android.util.Log
+import com.example.hackgsu19.api.Token
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
-
-//    val mReport1: Report = Report(
-//        "Bingo",
-//        "Male",
-//        R.drawable.bella,
-//        "2/24/19",
-//        "Atlanta Humane Society"
-//    )
-//
-//    val mReport2: Report = Report(
-//        "Tyrion",
-//        "Male",
-//        R.drawable.bernard,
-//        "2/24/19",
-//        "Atlanta Humane Society"
-//    )
-//
-//
-//    val mReport3: Report = Report(
-//        "Ally",
-//        "Female",
-//        R.drawable.ally,
-//        "2/24/19",
-//        "CARA"
-//    )
-//
-//
-//    val mReport4: Report = Report(
-//        "Banana Bread",
-//        "Female",
-//        R.drawable.bannanabread,
-//        "2/24/19",
-//        "Atlanta Humane Society"
-//    )
-//
-//
-//    val mReport5: Report = Report(
-//        "Barbecue",
-//        "Male",
-//        R.drawable.rocky,
-//        "2/24/19",
-//        "PAWS Atlanta"
-//    )
-//
-//
-//    val mReport6: Report = Report(
-//        "Bella",
-//        "Female",
-//        R.drawable.bella,
-//        "2/24/19",
-//        "Atlanta Humane Society"
-//    )
-//
-//
-//    val mReport7: Report = Report(
-//        "Bella",
-//        "Female",
-//        R.drawable.bella2,
-//        "2/24/19",
-//        "Cara"
-//    )
-//
-//    val mReport8: Report = Report(
-//        "Bernard",
-//        "Male",
-//        R.drawable.bernard,
-//        "2/24/19",
-//        "Atlanta Humane Society"
-//    )
-//
-//    val mReport9: Report = Report(
-//        "Lucky",
-//        "Male",
-//        R.drawable.lucky,
-//        "2/24/19",
-//        "Atlanta Humane Society"
-//    )
-//
-//
-//    val mReport10: Report = Report(
-//        "Milo",
-//        "Female",
-//        R.drawable.milo,
-//        "2/24/19",
-//        "CARA"
-//    )
-//
-//
-//    val mReport11: Report = Report(
-//        "Onyx",
-//        "Female",
-//        R.drawable.onyx,
-//        "2/24/19",
-//        "Atlanta Humane Society"
-//    )
-//
-//
-//    val mReport12: Report = Report(
-//        "Oreo",
-//        "Male",
-//        R.drawable.oreo,
-//        "2/24/19",
-//        "PAWS Atlanta"
-//    )
-//
-//
-//    val mReport13: Report = Report(
-//        "Pinto Bean",
-//        "Female",
-//        R.drawable.pintobean,
-//        "2/24/19",
-//        "Atlanta Humane Society"
-//    )
-//
-//
-//    val mReport14: Report = Report(
-//        "Rocky",
-//        "Female",
-//        R.drawable.rocky,
-//        "2/24/19",
-//        "Cara"
-//    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,7 +37,13 @@ class MainActivity : AppCompatActivity() {
 //            supportFragmentManager, 3
 //        )
 
-//        pager.adapter = adapter
+        //        pager.adapter = adapter
+//        val tokenClass = Token(this.applicationContext)
+//        tokenClass.requestAccessToken()
+//        val dogClientClass = DogClient()
+//        dogClientClass.setToken(tokenClass.getToken())
+//        print("HERE" + dogClientClass.getToken())
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -180,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun switchFragment(fragIndex: Int){
+    fun switchFragment(fragIndex: Int) {
         if (fragIndex < 4)
             pager.currentItem = fragIndex
         else
@@ -219,4 +113,36 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+//    fun requestAccessToken() {
+//        val TOKENURL = "https://api.petfinder.com/v2/oauth2/token"
+//        val CLIENTID = "jhhzlFRkGfON5TKip4tDSVT8liDSQoxVK1gNHUHgk0h8tuH09F"
+//        val CLIENTSECRET = "XwBXuKoTwn5YUqDqwA7MTbJJRWRa3SkPIWpqy0Os"
+//        val request = object : StringRequest(Request.Method.POST, TOKENURL,
+//            Response.Listener { response ->
+//                Log.e("Success Response: ", response.toString())
+//                val obj = JSONObject(response)
+//                val token: String = obj.getString("access_token")
+//                Log.e("Actual Token: ", token)
+//                },
+//            Response.ErrorListener { error -> Log.e("Error Response = ", error.toString()) }) {
+//            override fun getParams(): Map<String, String> {
+//                val params = HashMap<String, String>()
+//                params.put("grant_type", "client_credentials")
+//                params.put("client_id", CLIENTID)
+//                params.put("client_secret", CLIENTSECRET)
+//                return params
+//            }
+//            @Override
+//        override fun getHeaders(): Map<String, String> {
+//                val headers= HashMap<String,String>()
+//            headers.put("Accept","application/json")
+//            headers.put("Content-Type","application/x-www-form-urlencoded");
+//            return headers
+//        }
+//        }
+//        Volley.newRequestQueue(this).add(request)
+//    }
+
 }
+
+
