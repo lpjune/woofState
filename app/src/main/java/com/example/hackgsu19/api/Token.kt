@@ -23,7 +23,7 @@ class Token {
             return Token.accessToken
         }
 
-        fun seToken(token: String) {
+        fun setToken(token: String) {
             Token.accessToken = token
         }
 
@@ -38,7 +38,7 @@ class Token {
                     val obj = JSONObject(response)
                     val token: String = obj.getString("access_token")
                     Log.e("Actual Token: ", token)
-                    this.seToken(token)
+                    this.setToken(token)
                 },
                 Response.ErrorListener { error -> Log.e("Error Response = ", error.toString()) }) {
                 override fun getParams(): Map<String, String> {
@@ -59,4 +59,8 @@ class Token {
             }
             Volley.newRequestQueue(this.context).add(request)
         }
+
+//    fun addToRequestQ() {
+//    TODO("add animal/org request to volley request queue")
+//    }
 }

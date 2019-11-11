@@ -38,40 +38,11 @@ class MainActivity : AppCompatActivity() {
 //        )
 
         //        pager.adapter = adapter
-        val tokenClass = Token(this.applicationContext)
-        tokenClass.requestAccessToken()
-//        var token = Token.accessToken
-
-
-//        val TOKENURL = "https://api.petfinder.com/v2/oauth2/token"
-//        val CLIENTID = "jhhzlFRkGfON5TKip4tDSVT8liDSQoxVK1gNHUHgk0h8tuH09F"
-//        val CLIENTSECRET = "XwBXuKoTwn5YUqDqwA7MTbJJRWRa3SkPIWpqy0Os"
-//        val request = object : StringRequest(Request.Method.POST, TOKENURL,
-//            Response.Listener { response ->
-//                Log.e("Success Response: ", response.toString())
-//                val obj = JSONObject(response)
-//                val token: String = obj.getString("access_token")
-//                Log.e("Actual Token: ", token)
-//                val dogClient = DogClient().setToken(token)
-//                val orgClient = OrgClient().setToken(token)
-//            },
-//            Response.ErrorListener { error -> Log.e("Error Response = ", error.toString()) }) {
-//            override fun getParams(): Map<String, String> {
-//                val params = HashMap<String, String>()
-//                params.put("grant_type", "client_credentials")
-//                params.put("client_id", CLIENTID)
-//                params.put("client_secret", CLIENTSECRET)
-//                return params
-//            }
-//            @Override
-//            override fun getHeaders(): Map<String, String> {
-//                val headers= HashMap<String,String>()
-//                headers.put("Accept","application/json")
-//                headers.put("Content-Type","application/x-www-form-urlencoded")
-//                return headers
-//            }
-//        }
-//        Volley.newRequestQueue(this).add(request)
+//        val tokenClass = Token(this.applicationContext)
+//        tokenClass.requestAccessToken()
+//        val dogClientClass = DogClient()
+//        dogClientClass.setToken(tokenClass.getToken())
+//        print("HERE" + dogClientClass.getToken())
 
     }
 
