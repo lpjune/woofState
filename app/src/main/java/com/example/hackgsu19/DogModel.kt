@@ -1,23 +1,21 @@
 package com.example.hackgsu19
 
 import android.graphics.drawable.Drawable
+import com.google.firebase.database.IgnoreExtraProperties
 import org.json.JSONArray
 import org.json.JSONObject
 
-class DogModel {
-    var id: Int? = null
-    var name:String? = null
-//    var organizationId: String? = null
-    var url: String? = null
-    var imageUrl: String? = null
-    var image: Drawable? = null
-    var breeds: String? = null
-    var age: String? = null
-    var gender: String? = null
-    var size: String? = null
-    //TODO: Breeds, Colors,
-
-
+@IgnoreExtraProperties
+data class DogModel(var id: Int? = null,
+                    var name:String? = null,
+                    //    var organizationId: String? = null
+                    var url: String? = null,
+                    var imageUrl: String? = null,
+                    var image: Drawable? = null,
+                    var breeds: String? = null,
+                    var age: String? = null,
+                    var gender: String? = null,
+                    var size: String? = null) {
 
     companion object {
         fun fromJSON(jsonObject: JSONObject): DogModel{

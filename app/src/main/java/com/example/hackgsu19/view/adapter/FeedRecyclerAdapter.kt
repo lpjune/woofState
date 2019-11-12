@@ -6,10 +6,14 @@ import android.os.Build
 import android.transition.Slide
 import android.view.*
 import android.widget.*
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
+import com.facebook.Profile
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.*
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 
@@ -17,6 +21,8 @@ import com.squareup.picasso.Picasso
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
     private lateinit var context: Context
     private var dogList: ArrayList<DogModel> = ArrayList<DogModel>()
+    private val database = FirebaseDatabase.getInstance().reference
+    private val profile: Profile = Profile.getCurrentProfile()
 
 //    private val mCardList = Report.dogCardList
 
@@ -58,7 +64,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 .placeholder(R.drawable.dogplaceholder)
                 .into(viewHolder.cardImage)
 
-            viewHolder.cardImage.setBackgroundColor(Color.CYAN)
+            viewHolder.cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimaryLight))
         } else {
             viewHolder.cardImage.setImageDrawable(dog.image)
         }
@@ -72,6 +78,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 popupWindow.isFocusable = true
 
                 val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
+                imageView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
 //                To load full image
 //                Picasso.with(context)
 //                    .load(dog.imageUrl)
@@ -84,6 +91,27 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 if (imageView.drawable == null){
                     viewHolder.cardImage.setBackgroundColor(Color.CYAN)
                     viewHolder.cardImage.setImageDrawable(dog.image)
+                }
+
+                val likeButton: ImageView = popupView.findViewById(R.id.likeButton)
+                likeButton.setOnClickListener {
+                    database.child("users").child(profile.id).child("likes").child(dog.id.toString()).addListenerForSingleValueEvent(object: ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (dataSnapshot.value == true) {
+                                print("DOG IS UNLIKED")
+                                database.child("users").child(profile.id).child("likes").child(dog.id.toString()).setValue(false)
+                                likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_24dp))
+                            } else {
+                                print("DOG IS LIKED")
+                                database.child("users").child(profile.id).child("likes").child(dog.id.toString()).setValue(true)
+                                likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_24dp))
+                            }
+                        }
+                        override fun onCancelled(databaseError: DatabaseError) {
+
+                        }
+                    })
+                    database.child("dogs").child(dog.id.toString()).setValue(dog)
                 }
 
                 val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
@@ -106,10 +134,14 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
 
 
-                val fab = popupView.findViewById<FloatingActionButton>(R.id.fab)
+                val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
                 fab.setOnClickListener {
-                    popupWindow.dismiss()
+//                    popupWindow.dismiss()
 //                    openWalkADog(context, dog.name )
+                    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+                    val myRef: DatabaseReference = database.getReference("users")
+
+                    myRef.setValue("Testing")
                 }
             }
         }
