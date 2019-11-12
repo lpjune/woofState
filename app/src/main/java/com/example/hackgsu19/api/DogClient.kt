@@ -26,19 +26,21 @@ class DogClient {
         client = AsyncHttpClient()
     }
 
-//    fun setToken(tok: String) {
-//        DogClient.accessToken = tok
-//    }
-//
-//    fun getToken(): String {
-//        return DogClient.accessToken
-//    }
-
     fun getAnimals(handler: JsonHttpResponseHandler){
         val url = getApiUrl(API_ANIMALS_URL)
         print(url)
 //        val url = "https://api.petfinder.com/v2/animals"
         val params = RequestParams("type", "dog")
+        client?.addHeader("Authorization", "Bearer ".plus(accessToken))
+        client?.get(url,params,handler)
+    }
+
+    fun getAnimalsAtPage(page: Int, handler: JsonHttpResponseHandler){
+        val url = getApiUrl(API_ANIMALS_URL)
+        print(url)
+//        val url = "https://api.petfinder.com/v2/animals"
+        val params = RequestParams("type", "dog")
+        params.put("page", page)
         client?.addHeader("Authorization", "Bearer ".plus(accessToken))
         client?.get(url,params,handler)
     }
