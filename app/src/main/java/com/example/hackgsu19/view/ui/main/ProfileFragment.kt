@@ -42,25 +42,6 @@ class ProfileFragment: Fragment() {
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
 
-        val badge1 = rootView.findViewById<ImageView>(R.id.badge1)
-        badge1.setOnClickListener { badgeHasBeenClicked("7 day streak Badge","Congratulations! You have a 7 day walking streak!",rootView) }
-
-        val badge2 = rootView.findViewById<ImageView>(R.id.badge2)
-        badge2.setOnClickListener { badgeHasBeenClicked("Favorite Badge","Woohoo! You have favorited a pal!",rootView) }
-
-        val badge3 = rootView.findViewById<ImageView>(R.id.badge3)
-        badge3.setOnClickListener { badgeHasBeenClicked("Picture Badge","Nice! You have posted a picture!",rootView) }
-
-        val badge4 = rootView.findViewById<ImageView>(R.id.badge4)
-        badge4.setOnClickListener { badgeHasBeenClicked("Travel Badge","Great! You have traveled with a pal!",rootView) }
-
-        val profile: Profile = Profile.getCurrentProfile()
-
-        val username: TextView = rootView.findViewById(R.id.name)
-        username.setText(profile.name)
-
-        val profilePicture: ImageView = rootView.findViewById(R.id.profile_image)
-        Picasso.with(context).load(profile.getProfilePictureUri(300,300)).placeholder(R.drawable.default_profile_picture).into(profilePicture)
 
         dogList.clear()
         fetchDogs()
