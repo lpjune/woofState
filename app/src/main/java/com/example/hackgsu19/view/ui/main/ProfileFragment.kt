@@ -42,7 +42,6 @@ class ProfileFragment: Fragment() {
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
 
-
         dogList.clear()
         fetchDogs()
 
@@ -51,33 +50,27 @@ class ProfileFragment: Fragment() {
 
     private fun fetchDogs(){
         database.child("users").child(profile.id).child("likes").addChildEventListener(object: ChildEventListener {
-            override fun onCancelled(databaseError: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun onCancelled(databaseError: DatabaseError) {}
 
-            override fun onChildMoved(dataSnapshot: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
+            override fun onChildMoved(dataSnapshot: DataSnapshot, p1: String?) {}
 
             override fun onChildChanged(dataSnapshot: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                adapter.notifyDataSetChanged()
             }
 
             override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {
                 val isLiked = dataSnapshot.getValue(Boolean::class.java)
                 if (isLiked != null && isLiked == true)
                     getDogInfo(dataSnapshot.key!!)
-                print("\n*\n*\n*\n")
                 print(dataSnapshot.key)
             }
 
             override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                adapter.notifyDataSetChanged()
             }
         })
 
         adapter.setDogs(dogList)
-//        adapter.notifyDataSetChanged()
     }
 
     private fun getDogInfo(id: String){
@@ -88,58 +81,13 @@ class ProfileFragment: Fragment() {
 
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val dog: DogModel? = dataSnapshot.getValue(DogModel::class.java)
-                print("ON DATA CHANGED *\n*\n*\n*")
                 if (dog != null) {
                     dogList.add(dog)
                     adapter.notifyItemInserted(dogList.size-1)
                     print(dogList.size)
                     print(dogList)
-                    print("c\nc\nc\n")
                 }
             }
         })
     }
-
-    private fun badgeHasBeenClicked(badgeTitle: String, badgeName: String, view: View){
-//        Toast.makeText(activity,"Clicked ".plus(badgeName) ,Toast.LENGTH_LONG).show()
-
-        // Initialize a new layout inflater instance
-        val inflater:LayoutInflater = context?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-        // Inflate a custom view using layout inflater
-        val view = inflater.inflate(R.layout.badge_popup,null)
-
-
-        val popupView = LayoutInflater.from(activity).inflate(R.layout.badge_popup, null)
-        popupView.findViewById<TextView>(R.id.badge_id).setText(badgeName);
-        popupView.findViewById<TextView>(R.id.badge_title_id).setText(badgeTitle);
-        val popupWindow =
-            PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        popupWindow.isFocusable = true
-
-        // Set an elevation for the popup window
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            popupWindow.elevation = 10.0F
-        }
-
-
-        // If API level 23 or higher then execute the code
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            // Create a new slide animation for popup window enter transition
-            val slideIn = Slide()
-            slideIn.slideEdge = Gravity.TOP
-            popupWindow.enterTransition = slideIn
-
-            // Slide animation for popup window exit transition
-            val slideOut = Slide()
-            slideOut.slideEdge = Gravity.RIGHT
-            popupWindow.exitTransition = slideOut
-
-        }
-
-        popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
-
-
-    }
-
 }

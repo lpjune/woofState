@@ -90,7 +90,7 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RecyclerView.ViewHolder {
-        if (i == HEADERTYPE){
+        if (i == TYPE_HEADER){
             val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.profile_header, viewGroup, false)
             return ProfileViewHolder(v)
         } else {
@@ -100,7 +100,7 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, i: Int) {
-        if (getItemViewType(i) == HEADERTYPE) {
+        if (getItemViewType(i) == TYPE_HEADER) {
             (viewHolder as ProfileViewHolder).setDetails()
         } else {
             print("onBindViewHolder: ".plus(i))
@@ -111,9 +111,9 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         if (position == 0)
-            return HEADERTYPE
+            return TYPE_HEADER
         else
-            return CARDTYPE
+            return TYPE_CARD
     }
 
     override fun getItemCount(): Int {
@@ -122,8 +122,7 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private fun onCardClicked (dog: DogModel, image: Drawable?){
         val popupView = LayoutInflater.from(context).inflate(R.layout.dog_popup, null)
-        val popupWindow =
-            PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        val popupWindow = PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         popupWindow.isFocusable = true
 
         val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
@@ -136,22 +135,37 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
 
         val likeButton: ImageView = popupView.findViewById(R.id.likeButton)
+        likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_24dp))
+        likeButton.setOnClickListener {
+            database.child("users").child(profile.id).child("likes").child(dog.id.toString()).addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.value == true) {
+                        print("DOG IS UNLIKED")
+                        database.child("users").child(profile.id).child("likes").child(dog.id.toString()).setValue(false)
+                        likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_24dp))
+                    } else {
+                        print("DOG IS LIKED")
+                        database.child("users").child(profile.id).child("likes").child(dog.id.toString()).setValue(true)
+                        likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_24dp))
+                    }
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+
+                }
+            })
+            database.child("dogs").child(dog.id.toString()).setValue(dog)
+        }
 
         val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
-        cardName.setText(dog.name)
+        cardName.text = dog.name
 
         val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
 
         val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
-        breeds.setText(dog.breeds)
+        breeds.text = dog.breeds
 
         val quickInfo: TextView = popupView.findViewById(R.id.dog_quickinfo)
-        quickInfo.setText(dog.gender?.plus(" ⋅ ").plus(dog.age).plus(" ⋅ ").plus(dog.size))
-
-        // Set an elevation for the popup window
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            popupWindow.elevation = 10.0F
-        }
+        quickInfo.text = dog.gender?.plus(" ⋅ ").plus(dog.age).plus(" ⋅ ").plus(dog.size)
 
         popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
 
@@ -166,7 +180,7 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     companion object {
-        private val HEADERTYPE: Int = 1
-        private val CARDTYPE: Int = 2
+        private const val TYPE_HEADER: Int = 1
+        private const val TYPE_CARD: Int = 2
     }
 }
