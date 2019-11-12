@@ -2,6 +2,7 @@ package com.example.hackgsu19.view.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.transition.Slide
 import android.view.*
@@ -30,8 +31,8 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
     
     inner class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var cardImage: ImageView
-        var cardName: TextView
+        private var cardImage: ImageView
+        private var cardName: TextView
 
         init {
             cardImage = itemView.findViewById(R.id.card_image)
@@ -50,16 +51,17 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 .into(cardImage)
 
             cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimaryLight))
+            cardImage.setOnClickListener { onCardClicked(dog, cardImage.drawable) }
         }
     }
 
     inner class ProfileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        var profileImage: ImageView
-        val badge1: ImageView
-        val badge2: ImageView
-        val badge3: ImageView
-        val badge4: ImageView
-        val username: TextView
+        private var profileImage: ImageView
+        private val badge1: ImageView
+        private val badge2: ImageView
+        private val badge3: ImageView
+        private val badge4: ImageView
+        private val username: TextView
 
         init{
             profileImage = itemView.findViewById(R.id.profile_image)
@@ -69,8 +71,6 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             badge4 = itemView.findViewById(R.id.badge4)
 
             username = itemView.findViewById(R.id.name)
-
-            badge1.setOnClickListener {}
         }
 
         fun setDetails(){
@@ -104,57 +104,9 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             (viewHolder as ProfileViewHolder).setDetails()
         } else {
             print("onBindViewHolder: ".plus(i))
-            val dog: DogModel = mDogList[i]
+            val dog: DogModel = mDogList[i - 1]
             (viewHolder as CardViewHolder).setDetails(dog)
         }
-//
-//                viewHolder.cardImage.setOnClickListener{
-//                    context.let {
-//
-//                        val popupView = LayoutInflater.from(context).inflate(R.layout.dog_popup, null)
-//                        val popupWindow =
-//                            PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-//                        popupWindow.isFocusable = true
-//
-//                        val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
-//                        imageView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
-//                        imageView.setImageDrawable(viewHolder.cardImage.drawable)
-//
-//                        if (imageView.drawable == null){
-//                            viewHolder.cardImage.setBackgroundColor(Color.CYAN)
-//                            viewHolder.cardImage.setImageDrawable(dog.image)
-//                        }
-//
-//                        val likeButton: ImageView = popupView.findViewById(R.id.likeButton)
-//
-//                        val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
-//                        cardName.setText(dog.name)
-//
-//                        val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
-//
-//                        val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
-//                        breeds.setText(dog.breeds)
-//
-//                        val quickInfo: TextView = popupView.findViewById(R.id.dog_quickinfo)
-//                        quickInfo.setText(dog.gender?.plus(" ⋅ ").plus(dog.age).plus(" ⋅ ").plus(dog.size))
-//
-//                        // Set an elevation for the popup window
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                            popupWindow.elevation = 10.0F
-//                        }
-//
-//                        popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
-//
-//
-//                        val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
-//                        fab.setOnClickListener {
-//                            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-//                            val myRef: DatabaseReference = database.getReference("users")
-//
-//                            myRef.setValue("Testing")
-//                        }
-//                    }
-//
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -165,7 +117,52 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return mDogList.size
+        return (mDogList.size + 1)
+    }
+
+    private fun onCardClicked (dog: DogModel, image: Drawable?){
+        val popupView = LayoutInflater.from(context).inflate(R.layout.dog_popup, null)
+        val popupWindow =
+            PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        popupWindow.isFocusable = true
+
+        val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
+        imageView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
+        imageView.setImageDrawable(image)
+
+        if (imageView.drawable == null){
+            imageView.setBackgroundColor(Color.CYAN)
+            imageView.setImageDrawable(dog.image)
+        }
+
+        val likeButton: ImageView = popupView.findViewById(R.id.likeButton)
+
+        val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
+        cardName.setText(dog.name)
+
+        val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
+
+        val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
+        breeds.setText(dog.breeds)
+
+        val quickInfo: TextView = popupView.findViewById(R.id.dog_quickinfo)
+        quickInfo.setText(dog.gender?.plus(" ⋅ ").plus(dog.age).plus(" ⋅ ").plus(dog.size))
+
+        // Set an elevation for the popup window
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.elevation = 10.0F
+        }
+
+        popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
+
+
+        val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
+        fab.setOnClickListener {
+            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+            val myRef: DatabaseReference = database.getReference("users")
+
+            myRef.setValue("Testing")
+        }
     }
 
     companion object {
