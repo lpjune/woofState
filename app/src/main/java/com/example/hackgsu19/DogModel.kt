@@ -1,11 +1,9 @@
 package com.example.hackgsu19
 
 import android.graphics.drawable.Drawable
-import com.google.firebase.database.IgnoreExtraProperties
 import org.json.JSONArray
 import org.json.JSONObject
 
-@IgnoreExtraProperties
 data class DogModel(var id: Int? = null,
                     var name:String? = null,
                     //    var organizationId: String? = null

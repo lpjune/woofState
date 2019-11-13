@@ -12,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import android.content.pm.PackageManager
+import android.util.Log
 import android.widget.Toast
 import com.example.hackgsu19.OrgModel
 import com.example.hackgsu19.R
@@ -51,6 +52,7 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         mFeedFAB.setOnClickListener {
             (activity as MainActivity).switchFragment(0)
         }
+        fetchOrgs()
         return rootView
     }
 
@@ -91,14 +93,16 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         client.getOrgs(object: JsonHttpResponseHandler(){
             override fun onSuccess(
                 statusCode: Int,
-                headers: Array<out cz.msebera.android.httpclient.Header>?,
+                headers: Array<out Header>?,
                 response: JSONObject?
             ) {
                 val items = response?.getJSONArray("organizations")
                 if (items != null) {
                     val orgs = OrgModel.fromJSON(items)
+                    Log.i("Assert", orgs.toString())
+                    // TODO set to map here
                 }
-                Toast.makeText(context,items?.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(context, items?.length().toString().plus(" items loaded"), Toast.LENGTH_LONG).show()
                 print(items)
                 super.onSuccess(statusCode, headers, response)
             }

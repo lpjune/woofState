@@ -17,7 +17,6 @@ class DogClient {
     private val API_BASE_URL: String = "https://api.petfinder.com/v2"
     private val API_ANIMALS_URL: String = "/animals"
     private val API_TYPES_URL: String = "/types"
-    private val API_ORGANIZATION_URL: String = "/organizations"
     var accessToken: String = Token.accessToken
 
 
