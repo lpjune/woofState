@@ -17,6 +17,7 @@ import android.widget.Toast
 import com.example.hackgsu19.OrgModel
 import com.example.hackgsu19.R
 import com.example.hackgsu19.api.OrgClient
+import com.example.hackgsu19.api.Token
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.JsonHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -52,6 +53,8 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         mFeedFAB.setOnClickListener {
             (activity as MainActivity).switchFragment(0)
         }
+        val tokenClass = Token(this.requireContext())
+        tokenClass.requestAccessToken(this::fetchOrgs)
         fetchOrgs()
         return rootView
     }
