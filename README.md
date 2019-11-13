@@ -11,7 +11,6 @@ This app utilizes the following:
 ### Where to put API keys:
 In the ```local.properties``` file add
 ```
-sdk.dir=<Don't change this, this should be your path to the Android SDK on your machine>
 googleMaps_api_key=<insert Google Maps API key>
 ```
 
