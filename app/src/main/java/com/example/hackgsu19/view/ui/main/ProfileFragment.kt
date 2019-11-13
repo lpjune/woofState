@@ -83,7 +83,6 @@ class ProfileFragment: Fragment() {
                 val dog: DogModel? = dataSnapshot.getValue(DogModel::class.java)
                 if (dog != null) {
                     dogList.add(dog)
-                    adapter.notifyItemInserted(dogList.size-1)
                     print(dogList.size)
                     print(dogList)
                 }
