@@ -3,9 +3,13 @@
           package="com.example.hackgsu19">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <application
             android:allowBackup="true"
             android:icon="@mipmap/wuph_launcher"
@@ -17,14 +21,14 @@
 
         <!--FB-->
 
+
         <meta-data android:name="com.facebook.sdk.ApplicationId"
-                   android:value="@string/FACEBOOK_APP_ID"/>
+                android:value="@string/facebook_app_id"/>
 
         <activity android:name="com.facebook.FacebookActivity"
-
-                  android:configChanges=
-                          "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-                  android:label="@string/app_name" />
+                android:configChanges=
+                        "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+                android:label="@string/app_name" />
         <activity
                 android:name="com.facebook.CustomTabActivity"
                 android:exported="true">
@@ -32,7 +36,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/FACEBOOK_LOGIN_PROTOCOL_SCHEMA" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
         <!--FB END-->
@@ -48,14 +52,14 @@
                 android:name="preloaded_fonts"
                 android:resource="@array/preloaded_fonts"/>
         <!--GOOGLE END-->
-        <activity android:name="com.example.hackgsu19.LoginActivity">
+        <activity android:name="com.example.hackgsu19.view.ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="com.example.hackgsu19.MainActivity">
+        <activity android:name="com.example.hackgsu19.view.ui.main.MainActivity">
         </activity>
     </application>
 

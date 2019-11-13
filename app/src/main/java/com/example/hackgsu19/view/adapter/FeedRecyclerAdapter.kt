@@ -1,29 +1,43 @@
-package com.example.hackgsu19.Feed
+package com.example.hackgsu19.view.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import android.transition.Slide
 import android.view.*
 import android.widget.*
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.R
-import com.example.hackgsu19.Report
+import com.facebook.Profile
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.database.*
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
     private lateinit var context: Context
+    private var dogList: ArrayList<DogModel> = ArrayList<DogModel>()
+    private val database = FirebaseDatabase.getInstance().reference
+    private val profile: Profile = Profile.getCurrentProfile()
 
-    private val mCardList = Report.dogCardList
+//    private val mCardList = Report.dogCardList
+
+    fun setDogs (dogList: ArrayList<DogModel>){
+        this.dogList = dogList
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         var cardImage: ImageView
         var cardName: TextView
 
         init {
             cardImage = itemView.findViewById(R.id.card_image)
             cardName = itemView.findViewById(R.id.card_name)
+            cardName.elevation = 10f
         }
     }
 
@@ -38,55 +52,96 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-        var mReport: Report = mCardList[i]
-        viewHolder.cardName.text = mReport.name
-        viewHolder.cardImage.setImageResource(mReport.image)
+        var dog: DogModel = dogList[i]
+
+        viewHolder.cardName.text = dog.name
+
+        if (dog.image == null){
+            Picasso.with(context)
+                .load(dog.imageUrl)
+                .fit()
+                .centerCrop()
+                .placeholder(R.drawable.dogplaceholder)
+                .into(viewHolder.cardImage)
+
+            viewHolder.cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimaryLight))
+        } else {
+            viewHolder.cardImage.setImageDrawable(dog.image)
+        }
 
         viewHolder.cardImage.setOnClickListener{
-            context?.let {
+            context.let {
 
                 val popupView = LayoutInflater.from(context).inflate(R.layout.dog_popup, null)
                 val popupWindow =
-                    PopupWindow(popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+                    PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
                 popupWindow.isFocusable = true
 
                 val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
-                imageView.setImageResource(mReport.image)
+                imageView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
+//                To load full image
+//                Picasso.with(context)
+//                    .load(dog.imageUrl)
+//                    .fit()
+//                    .centerInside()
+//                    .placeholder(R.drawable.dogplaceholder)
+//                    .into(imageView)
+                imageView.setImageDrawable(viewHolder.cardImage.drawable)
+
+                if (imageView.drawable == null){
+                    viewHolder.cardImage.setBackgroundColor(Color.CYAN)
+                    viewHolder.cardImage.setImageDrawable(dog.image)
+                }
+
+                val likeButton: ImageView = popupView.findViewById(R.id.likeButton)
+                likeButton.setOnClickListener {
+                    database.child("users").child(profile.id).child("likes").child(dog.id.toString()).addListenerForSingleValueEvent(object: ValueEventListener {
+                        override fun onDataChange(dataSnapshot: DataSnapshot) {
+                            if (dataSnapshot.value == true) {
+                                print("DOG IS UNLIKED")
+                                database.child("users").child(profile.id).child("likes").child(dog.id.toString()).setValue(false)
+                                likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_border_white_24dp))
+                            } else {
+                                print("DOG IS LIKED")
+                                database.child("users").child(profile.id).child("likes").child(dog.id.toString()).setValue(true)
+                                likeButton.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_favorite_white_24dp))
+                            }
+                        }
+                        override fun onCancelled(databaseError: DatabaseError) {
+
+                        }
+                    })
+                    database.child("dogs").child(dog.id.toString()).setValue(dog)
+                }
 
                 val cardName: TextView = popupView.findViewById(R.id.dog_name_expanded)
-                cardName.setText(mReport.name)
+                cardName.setText(dog.name)
 
                 val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
-                orgName.setText(mReport.org)
+//                orgName.setText(dog.organizationId)
 
+                val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
+                breeds.setText(dog.breeds)
+
+                val quickInfo: TextView = popupView.findViewById(R.id.dog_quickinfo)
+                quickInfo.setText(dog.gender?.plus(" ⋅ ").plus(dog.age).plus(" ⋅ ").plus(dog.size))
 
                 // Set an elevation for the popup window
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     popupWindow.elevation = 10.0F
                 }
 
-
-                // If API level 23 or higher then execute the code
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                    // Create a new slide animation for popup window enter transition
-                    val slideIn = Slide()
-                    slideIn.slideEdge = Gravity.TOP
-                    popupWindow.enterTransition = slideIn
-
-                    // Slide animation for popup window exit transition
-                    val slideOut = Slide()
-                    slideOut.slideEdge = Gravity.RIGHT
-                    popupWindow.exitTransition = slideOut
-
-                }
-
                 popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
 
 
-                val fab = popupView.findViewById<FloatingActionButton>(R.id.fab)
+                val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
                 fab.setOnClickListener {
-                    popupWindow.dismiss()
-                    openWalkADog(context, mReport.name )
+//                    popupWindow.dismiss()
+//                    openWalkADog(context, dog.name )
+                    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+                    val myRef: DatabaseReference = database.getReference("users")
+
+                    myRef.setValue("Testing")
                 }
             }
         }
@@ -94,7 +149,7 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
 
     override fun getItemCount(): Int {
-        return mCardList.size
+        return dogList.size
     }
 
     fun openWalkADog(context: Context?, badgeTitle:String){
