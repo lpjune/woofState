@@ -8,9 +8,18 @@ This app utilizes the following:
 - [Facebook Authentication](https://developers.facebook.com/docs/facebook-login/android)
 - [Firebase Realtime Database](https://firebase.google.com/docs/database/)
 
-# Where to put API keys:
+### Where to put API keys:
 In the ```local.properties``` file add
 ```
 sdk.dir=<Don't change this, this should be your path to the Android SDK on your machine>
 googleMaps_api_key=<insert Google Maps API key>
 ```
+
+## License
+Copyright [2019] [Claudia Nelson and Lauren Orsini]
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
