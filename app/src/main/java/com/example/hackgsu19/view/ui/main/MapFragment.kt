@@ -1,26 +1,30 @@
 package com.example.hackgsu19.view.ui.main
 
 import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.hackgsu19.OrgModel
+import com.example.hackgsu19.R
+import com.example.hackgsu19.api.OrgClient
+import com.example.hackgsu19.api.Token
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import android.content.pm.PackageManager
-import android.util.Log
-import android.widget.Toast
-import com.example.hackgsu19.OrgModel
-import com.example.hackgsu19.R
-import com.example.hackgsu19.api.OrgClient
-import com.example.hackgsu19.api.Token
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.JsonHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import kotlinx.android.synthetic.main.fragment_map.*
 import org.json.JSONObject
 
 
@@ -102,8 +106,18 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
                 val items = response?.getJSONArray("organizations")
                 if (items != null) {
                     val orgs = OrgModel.fromJSON(items)
+                    val addressList = mutableListOf<Address>()
                     Log.i("Assert", orgs.toString())
-                    // TODO set to map here
+                    for(org in orgs) {
+                        val locationName = org.name
+                        val gc = Geocoder(context)
+                        addressList += gc.getFromLocationName(locationName, 5)
+                        Log.e("Information", addressList.toString())
+                    }
+                    for(address in addressList) {
+                        mMap.addMarker(MarkerOptions().position(LatLng(address.latitude, address.longitude)))
+                    }
+
                 }
                 Toast.makeText(context, items?.length().toString().plus(" items loaded"), Toast.LENGTH_LONG).show()
                 print(items)

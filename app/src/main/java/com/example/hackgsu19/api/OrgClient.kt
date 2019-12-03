@@ -18,7 +18,8 @@ class OrgClient {
         val url = getApiUrl(API_ORGANIZATIONS_URL)
         print(url)
 //        val url = "https://api.petfinder.com/v2/animals"
-        val params = RequestParams("name", "location")
+        val params = RequestParams()
+        params.put("location", "Starkville, MS")
         client?.addHeader("Authorization", "Bearer ".plus(accessToken))
         client?.get(url,params,handler)
     }
