@@ -4,16 +4,21 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 class OrgModel {
-    var id: Int? = null
+    var id: String? = null
     var name:String? = null
-    var address: String? = null
+    var location: String? = null
 
     companion object {
         fun fromJSON(jsonObject: JSONObject): OrgModel{
             val orgModel = OrgModel()
-            orgModel.id = jsonObject.getInt("id")
+            orgModel.id = jsonObject.getString("id")
             orgModel.name = jsonObject.getString("name")
-            orgModel.address = jsonObject.getString("address")
+            orgModel.location = jsonObject.getString("address")
+
+            //TODO: Remove
+            print("*****\n*\n")
+            print(orgModel.name + "  " + orgModel.location)
+            print("*****\n*\n")
 
             return orgModel
         }
