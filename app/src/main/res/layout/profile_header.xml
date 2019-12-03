@@ -48,6 +48,60 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintStart_toEndOf="@+id/profile_image"
             app:layout_constraintTop_toTopOf="parent" />
+
+    <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_image">
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="36dp"
+                android:src="@drawable/ic_whatshot_pink_24dp"
+                android:adjustViewBounds="true"
+                android:layout_gravity="fill_horizontal"
+                android:layout_columnWeight="1"
+                android:id="@+id/badge1"/>
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="36dp"
+                android:src="@drawable/ic_gold_star_24dp"
+                android:adjustViewBounds="true"
+                android:layout_gravity="fill_horizontal"
+                android:layout_columnWeight="1"
+                android:id="@+id/badge2"/>
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="36dp"
+                android:src="@drawable/ic_insert_photo_blue_24dp"
+                android:adjustViewBounds="true"
+                android:layout_gravity="fill_horizontal"
+                android:layout_columnWeight="1"
+                android:id="@+id/badge3"/>
+
+        <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="36dp"
+                android:src="@drawable/ic_local_airport_black_24dp"
+                android:adjustViewBounds="true"
+                android:layout_gravity="fill_horizontal"
+                android:layout_columnWeight="1"
+                android:id="@+id/badge4"/>
+
+
+    </GridLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

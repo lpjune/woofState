@@ -1,6 +1,5 @@
 package com.example.hackgsu19.view.ui.main
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import androidx.fragment.app.Fragment
@@ -45,7 +44,7 @@ class FeedFragment: Fragment(), SwipeRefreshLayout.OnRefreshListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_feed, container, false)
 
-        swipeLayout = rootView.findViewById<SwipeRefreshLayout>(R.id.swipe_container);
+        swipeLayout = rootView.findViewById(R.id.swipe_container)
         swipeLayout.setOnRefreshListener(this)
 
         val mRecyclerView = rootView.findViewById(R.id.manager_recycler_view) as RecyclerView // Add this
