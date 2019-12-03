@@ -1,31 +1,25 @@
 package com.example.hackgsu19.view.ui.main
 
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import androidx.fragment.app.Fragment
-import android.transition.Slide
 import android.view.*
-import android.view.WindowManager
 import android.view.LayoutInflater
-import android.widget.*
-import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hackgsu19.DogModel
 import com.example.hackgsu19.view.adapter.ProfileRecyclerAdapter
 import com.example.hackgsu19.R
-import com.facebook.AccessToken
 import com.facebook.Profile
-import com.facebook.ProfileTracker
 import com.google.firebase.database.*
-import com.squareup.picasso.Picasso
 
-class ProfileFragment: Fragment() {
+class ProfileFragment: Fragment(), SwipeRefreshLayout.OnRefreshListener {
     private val adapter = ProfileRecyclerAdapter()
     private val database = FirebaseDatabase.getInstance().reference
     private val profile = Profile.getCurrentProfile()
     private val dogList = ArrayList<DogModel>()
+    private lateinit var swipeLayout: SwipeRefreshLayout
 
     companion object {
         fun newInstance(): ProfileFragment {
@@ -42,10 +36,23 @@ class ProfileFragment: Fragment() {
         adapter.setContext(activity)
         mProfileRecyclerView.adapter = adapter
 
+        swipeLayout = rootView.findViewById(R.id.swipe_container)
+        swipeLayout.setOnRefreshListener(this)
+
         dogList.clear()
         fetchDogs()
 
         return rootView
+    }
+
+    override fun onRefresh() {
+        Handler().postDelayed(object: Runnable{
+            override fun run() {
+                dogList.clear()
+                fetchDogs()
+                swipeLayout.isRefreshing = false
+            }
+        }, 0)
     }
 
     private fun fetchDogs(){

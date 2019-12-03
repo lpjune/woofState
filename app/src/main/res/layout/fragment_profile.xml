@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.example.hackgsu19.view.ui.main.MainActivity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/profile_recycler" />
+        android:layout_height="match_parent"
+        android:id="@+id/swipe_container"
+        >
+    <androidx.recyclerview.widget.RecyclerView
+            tools:context="com.example.hackgsu19.view.ui.main.MainActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/profile_recycler" />
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
