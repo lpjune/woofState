@@ -10,12 +10,18 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
+import com.example.hackgsu19.OrgModel
 import com.example.hackgsu19.R
+import com.example.hackgsu19.api.DogClient
+import com.example.hackgsu19.api.OrgClient
 import com.facebook.Profile
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
+import com.loopj.android.http.JsonHttpResponseHandler
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
+import cz.msebera.android.httpclient.Header
+import org.json.JSONObject
 
 
 class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>() {
@@ -28,6 +34,10 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
     fun setDogs (dogList: ArrayList<DogModel>){
         this.dogList = dogList
+    }
+
+    fun setDogsAtI (dog: DogModel, i: Int){
+        this.dogList[i] = dog
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -79,13 +89,6 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
                 val imageView: ImageView = popupView.findViewById(R.id.dog_image_expanded)
                 imageView.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
-//                To load full image
-//                Picasso.with(context)
-//                    .load(dog.imageUrl)
-//                    .fit()
-//                    .centerInside()
-//                    .placeholder(R.drawable.dogplaceholder)
-//                    .into(imageView)
                 imageView.setImageDrawable(viewHolder.cardImage.drawable)
 
                 if (imageView.drawable == null){
@@ -118,7 +121,10 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
                 cardName.setText(dog.name)
 
                 val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
-//                orgName.setText(dog.organizationId)
+                if(dog.organization != null)
+                    orgName.text = dog.organization
+                else
+                    orgName.text = "Unknown shelter"
 
                 val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
                 breeds.setText(dog.breeds)

@@ -24,6 +24,14 @@ class OrgClient {
         client?.get(url,params,handler)
     }
 
+    fun getSingleOrg(id: String, handler: JsonHttpResponseHandler) {
+        val url = getApiUrl(API_ORGANIZATIONS_URL).plus("/").plus(id)
+        print(url)
+        val params = RequestParams()
+        client?.addHeader("Authorization", "Bearer ".plus(accessToken))
+        client?.get(url,params,handler)
+    }
+
     fun getApiUrl(relativeUrl: String): String{
         return API_BASE_URL.plus(relativeUrl)
     }
@@ -31,9 +39,4 @@ class OrgClient {
     fun getOrganizationsUrl(): String {
         return API_ORGANIZATIONS_URL
     }
-
-    fun getSingleOrganizationUrl(id: String): String {
-        return API_ORGANIZATIONS_URL + id
-    }
-
 }

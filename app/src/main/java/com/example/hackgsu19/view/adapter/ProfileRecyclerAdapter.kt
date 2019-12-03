@@ -160,6 +160,10 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         cardName.text = dog.name
 
         val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
+        if(dog.organization != null)
+            orgName.text = dog.organization
+        else
+            orgName.text = "Unknown shelter"
 
         val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
         breeds.text = dog.breeds
