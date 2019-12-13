@@ -31,7 +31,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField "String", "PETFINDER_API_KEY", "\"${getProperty("local.properties", "petfinder_api_key")}\""
         buildConfigField "String", "PETFINDER_API_SECRET", "\"${getProperty("local.properties", "petfinder_api_secret")}\""
-        resValue "string", "GOOGLEMAPS_API_KEY", "\"${getProperty("local.properties", "googleMaps_api_key")}\""
+        resValue "string", "GOOGLEMAPS_API_KEY", "\"${getProperty("local.properties", "GOOGLEMAPS_APIKEY")}\""
         resValue "string", "FACEBOOK_APP_ID", "\"${getProperty("local.properties", "facebook_ap_id")}\""
         resValue "string", "FACEBOOK_LOGIN_PROTOCOL_SCHEMA", "\"${getProperty("local.properties", "facebook_login_protocol_schema")}\""
     }

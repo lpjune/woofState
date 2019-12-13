@@ -13,7 +13,9 @@ import com.example.hackgsu19.R
 import 	androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hackgsu19.DogModel
+import com.example.hackgsu19.OrgModel
 import com.example.hackgsu19.api.DogClient
+import com.example.hackgsu19.api.OrgClient
 import com.example.hackgsu19.api.Token
 import com.example.hackgsu19.view.adapter.FeedRecyclerAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -84,6 +86,7 @@ class FeedFragment: Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 val items = response?.getJSONArray("animals")
                 if (items != null) {
                     val dogs = DogModel.fromJSON(items)
+                    fetchOrgs(dogs)
                     myAdapter.setDogs(dogs)
                     myAdapter.notifyDataSetChanged()
                 }
@@ -102,5 +105,42 @@ class FeedFragment: Fragment(), SwipeRefreshLayout.OnRefreshListener {
                 super.onFailure(statusCode, headers, responseString, throwable)
             }
         })
+    }
+
+    private fun fetchOrgs(dogs: ArrayList<DogModel>){
+        val client = OrgClient()
+        for ((index, dog) in dogs.withIndex()){
+            if (dog.organizationId != null){
+                client.getSingleOrg(dog.organizationId!!, object: JsonHttpResponseHandler(){
+                    override fun onSuccess(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        response: JSONObject?
+                    ) {
+                        val org = response?.getJSONObject("organization")
+                        if (org != null) {
+                            dog.organization =  OrgModel.fromJSON(org).name
+                            print("metest heck: \n\n org: ")
+                            print(dog.organization)
+                            print(dog.organizationId)
+                            myAdapter.setDogsAtI(dog, index)
+                            myAdapter.notifyDataSetChanged()
+                        }
+                        super.onSuccess(statusCode, headers, response)
+                    }
+
+                    override fun onFailure(
+                        statusCode: Int,
+                        headers: Array<out Header>?,
+                        responseString: String?,
+                        throwable: Throwable?
+                    ) {
+                        super.onFailure(statusCode, headers, responseString, throwable)
+                        dog.organization = "unknown shelter"
+                        myAdapter.notifyDataSetChanged()
+                    }
+                })
+            }
+        }
     }
 }

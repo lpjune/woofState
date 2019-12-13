@@ -1,28 +1,30 @@
 package com.example.hackgsu19
 
 import android.graphics.drawable.Drawable
-import com.google.firebase.database.IgnoreExtraProperties
+import android.widget.Toast
+import com.example.hackgsu19.api.OrgClient
+import com.loopj.android.http.JsonHttpResponseHandler
+import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
 import org.json.JSONObject
 
-@IgnoreExtraProperties
 data class DogModel(var id: Int? = null,
                     var name:String? = null,
-                    //    var organizationId: String? = null
                     var url: String? = null,
                     var imageUrl: String? = null,
                     var image: Drawable? = null,
                     var breeds: String? = null,
                     var age: String? = null,
                     var gender: String? = null,
-                    var size: String? = null) {
+                    var size: String? = null,
+                    var organization: String? = null,
+                    var organizationId: String? = null) {
 
     companion object {
         fun fromJSON(jsonObject: JSONObject): DogModel{
             val dogModel = DogModel()
             dogModel.id = jsonObject.getInt("id")
             dogModel.name = jsonObject.getString("name")
-//            dogModel.organizationId = jsonObject.getString("organzation_id")
             dogModel.url = jsonObject.getString("url")
 
             val photos: JSONArray = jsonObject.getJSONArray("photos")
@@ -48,7 +50,11 @@ data class DogModel(var id: Int? = null,
             dogModel.age = jsonObject.getString("age")
             dogModel.gender = jsonObject.getString("gender")
             dogModel.size = jsonObject.getString("size")
+            try {
+                dogModel.organizationId = jsonObject.getString("organization_id")
+            } catch (e: Exception){
 
+            }
 
             //TODO: Remove
             print("*****\n*\n")

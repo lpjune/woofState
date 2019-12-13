@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
+import com.example.hackgsu19.EmailService
 import com.example.hackgsu19.R
 import com.facebook.Profile
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,14 +44,18 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             print(dog.name)
             cardName.text = dog.name
 
-            Picasso.with(context)
-                .load(dog.imageUrl)
-                .fit()
-                .centerCrop()
-                .placeholder(R.drawable.dogplaceholder)
-                .into(cardImage)
+            if (dog.imageUrl == null){
+                cardImage.setBackgroundColor(Color.GRAY)
+            } else {
+                Picasso.with(context)
+                    .load(dog.imageUrl)
+                    .fit()
+                    .centerCrop()
+                    .placeholder(R.drawable.dogplaceholder)
+                    .into(cardImage)
+                cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
+            }
 
-            cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimaryLight))
             cardImage.setOnClickListener { onCardClicked(dog, cardImage.drawable) }
         }
     }
@@ -160,6 +165,10 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         cardName.text = dog.name
 
         val orgName: TextView = popupView.findViewById(R.id.dog_shelter_name)
+        if(dog.organization != null)
+            orgName.text = dog.organization
+        else
+            orgName.text = "Unknown shelter"
 
         val breeds: TextView = popupView.findViewById(R.id.dog_breeds)
         breeds.text = dog.breeds
@@ -172,10 +181,8 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
         fab.setOnClickListener {
-            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-            val myRef: DatabaseReference = database.getReference("users")
-
-            myRef.setValue("Testing")
+            val addresses = Array<String>(1) {"claudiaareneee@gmail.com"}
+            EmailService.composeEmail(context, addresses, "I would like to meet ".plus(dog.name))
         }
     }
 
