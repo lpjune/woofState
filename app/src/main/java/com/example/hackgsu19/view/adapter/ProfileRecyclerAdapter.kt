@@ -43,14 +43,18 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             print(dog.name)
             cardName.text = dog.name
 
-            Picasso.with(context)
-                .load(dog.imageUrl)
-                .fit()
-                .centerCrop()
-                .placeholder(R.drawable.dogplaceholder)
-                .into(cardImage)
+            if (dog.imageUrl == null){
+                cardImage.setBackgroundColor(Color.GRAY)
+            } else {
+                Picasso.with(context)
+                    .load(dog.imageUrl)
+                    .fit()
+                    .centerCrop()
+                    .placeholder(R.drawable.dogplaceholder)
+                    .into(cardImage)
+                cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
+            }
 
-            cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimaryLight))
             cardImage.setOnClickListener { onCardClicked(dog, cardImage.drawable) }
         }
     }

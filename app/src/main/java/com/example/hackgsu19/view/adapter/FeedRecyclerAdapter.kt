@@ -66,17 +66,21 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
         viewHolder.cardName.text = dog.name
 
-        if (dog.image == null){
+        if (dog.imageUrl == null){
+            Picasso.with(context)
+                .load(R.drawable.ic_image_grey_24dp)
+                .fit()
+                .centerCrop()
+                .into(viewHolder.cardImage)
+            viewHolder.cardImage.setBackgroundColor(Color.GRAY)
+        } else {
             Picasso.with(context)
                 .load(dog.imageUrl)
                 .fit()
                 .centerCrop()
                 .placeholder(R.drawable.dogplaceholder)
                 .into(viewHolder.cardImage)
-
-            viewHolder.cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorPrimaryLight))
-        } else {
-            viewHolder.cardImage.setImageDrawable(dog.image)
+            viewHolder.cardImage.setBackgroundColor(ContextCompat.getColor(context,R.color.colorSecondaryLight))
         }
 
         viewHolder.cardImage.setOnClickListener{
