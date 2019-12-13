@@ -7,6 +7,7 @@ class OrgModel {
     var id: String? = null
     var name:String? = null
     var location: String? = null
+    var email: String? = null
 
     companion object {
         fun fromJSON(jsonObject: JSONObject): OrgModel{
@@ -14,6 +15,7 @@ class OrgModel {
             orgModel.id = jsonObject.getString("id")
             orgModel.name = jsonObject.getString("name")
             orgModel.location = jsonObject.getString("address")
+            orgModel.email = jsonObject.getString("email")
 
             //TODO: Remove
             print("*****\n*\n")

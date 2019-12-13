@@ -151,6 +151,29 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
                 val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
                 fab.setOnClickListener {
+//                    UNCOMMENT TO GET ORG EMAILS
+//                    val client = OrgClient()
+//                    if (dog.organizationId != null){
+//                        client.getSingleOrg(dog.organizationId!!, object: JsonHttpResponseHandler(){
+//                            override fun onSuccess(
+//                                statusCode: Int,
+//                                headers: Array<out Header>?,
+//                                response: JSONObject?
+//                            ) {
+//                                val org = response?.getJSONObject("organization")
+//                                if (org != null) {
+//                                    val email = OrgModel.fromJSON(org).email
+//
+//                                    if (email != null){
+//                                        val addresses = Array<String>(1) {email}
+//                                        EmailService.composeEmail(context, addresses, "I would like to meet ".plus(dog.name))
+//                                    }
+//                                }
+//                                super.onSuccess(statusCode, headers, response)
+//                            }
+//                        })
+//                    }
+
                     val addresses = Array<String>(1) {"claudiaareneee@gmail.com"}
                     EmailService.composeEmail(context, addresses, "I would like to meet ".plus(dog.name))
                 }
