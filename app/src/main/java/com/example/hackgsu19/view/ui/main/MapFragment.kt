@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.JsonHttpResponseHandler
@@ -114,10 +115,18 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
                         addressList += gc.getFromLocationName(locationName, 5)
                         Log.e("Information", addressList.toString())
                     }
+                    var latLngs = arrayListOf<LatLng>()
                     for(address in addressList) {
-                        mMap.addMarker(MarkerOptions().position(LatLng(address.latitude, address.longitude)))
+                        var latlng = LatLng(address.latitude, address.longitude)
+                        mMap.addMarker(MarkerOptions().position(latlng))
+                        latLngs.add(latlng)
                     }
-
+                    var builder = LatLngBounds.Builder();
+                    for(pos in latLngs) {
+                        builder.include(pos)
+                    }
+                    var bounds: LatLngBounds = builder.build()
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20))
                 }
                 Toast.makeText(context, items?.length().toString().plus(" items loaded"), Toast.LENGTH_LONG).show()
                 print(items)
