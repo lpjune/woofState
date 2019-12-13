@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
+import com.example.hackgsu19.EmailService
 import com.example.hackgsu19.R
 import com.facebook.Profile
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -180,10 +181,8 @@ class ProfileRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
         fab.setOnClickListener {
-            val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-            val myRef: DatabaseReference = database.getReference("users")
-
-            myRef.setValue("Testing")
+            val addresses = Array<String>(1) {"claudiaareneee@gmail.com"}
+            EmailService.composeEmail(context, addresses, "I would like to meet ".plus(dog.name))
         }
     }
 

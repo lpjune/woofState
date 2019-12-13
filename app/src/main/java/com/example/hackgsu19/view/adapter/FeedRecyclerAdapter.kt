@@ -1,15 +1,20 @@
 package com.example.hackgsu19.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.transition.Slide
 import android.view.*
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hackgsu19.DogModel
+import com.example.hackgsu19.EmailService
 import com.example.hackgsu19.OrgModel
 import com.example.hackgsu19.R
 import com.example.hackgsu19.api.DogClient
@@ -146,113 +151,15 @@ class FeedRecyclerAdapter: RecyclerView.Adapter<FeedRecyclerAdapter.ViewHolder>(
 
                 val fab = popupView.findViewById<FloatingActionButton>(R.id.addFab)
                 fab.setOnClickListener {
-//                    popupWindow.dismiss()
-//                    openWalkADog(context, dog.name )
-                    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-                    val myRef: DatabaseReference = database.getReference("users")
-
-                    myRef.setValue("Testing")
+                    val addresses = Array<String>(1) {"claudiaareneee@gmail.com"}
+                    EmailService.composeEmail(context, addresses, "I would like to meet ".plus(dog.name))
                 }
             }
         }
     }
 
-
     override fun getItemCount(): Int {
         return dogList.size
-    }
-
-    fun openWalkADog(context: Context?, badgeTitle:String){
-        // Initialize a new layout inflater instance
-
-        val popupView = LayoutInflater.from(context).inflate(R.layout.walk_a_dog_popup, null)
-
-        val badgeTitleId = popupView.findViewById<TextView>(R.id.badge_title_id)
-        badgeTitleId.setText("Schedule a walk with ".plus(badgeTitle))
-
-        val fromButton = popupView.findViewById<Button>(R.id.from)
-        val fromDateTextView = popupView.findViewById<TextView>(R.id.from_date_text_view)
-        val fromTimeTextView = popupView.findViewById<TextView>(R.id.from_time_text_view)
-        val fromDatePicker = popupView.findViewById<DatePicker>(R.id.date_picker_from)
-        val fromTimePicker = popupView.findViewById<TimePicker>(R.id.time_picker_from)
-
-
-        val toButton = popupView.findViewById<TextView>(R.id.to)
-        val toDateTextView = popupView.findViewById<TextView>(R.id.to_date_text_view)
-        val toTimeTextView = popupView.findViewById<TextView>(R.id.to_time_text_view)
-        val toDatePicker = popupView.findViewById<DatePicker>(R.id.date_picker_to)
-        val toTimePicker = popupView.findViewById<TimePicker>(R.id.time_picker_to)
-        val submitButton = popupView.findViewById<Button>(R.id.submit)
-
-        fromDatePicker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
-            fromDateTextView.setText(monthOfYear.toString() + "/"+ dayOfMonth+"/"+year)
-        }
-
-        fromTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            fromTimeTextView.setText(hourOfDay.toString().plus(':').plus(minute))
-        }
-
-        fromButton.setOnClickListener {
-            if (fromDatePicker.visibility == View.GONE){
-                fromDatePicker.visibility = View.VISIBLE
-                fromTimePicker.visibility = View.VISIBLE
-            } else {
-                fromDatePicker.visibility = View.GONE
-                fromTimePicker.visibility = View.GONE
-            }
-        }
-
-        toDatePicker.setOnDateChangedListener { view, year, monthOfYear, dayOfMonth ->
-            toDateTextView.setText(monthOfYear.toString() + "/"+ dayOfMonth+"/"+year)
-        }
-
-        toTimePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
-            toTimeTextView.setText(hourOfDay.toString().plus(':').plus(minute))
-        }
-
-        toButton.setOnClickListener {
-            if (toDatePicker.visibility == View.GONE){
-                toDatePicker.visibility = View.VISIBLE
-                toTimePicker.visibility = View.VISIBLE
-            } else {
-                toDatePicker.visibility = View.GONE
-                toTimePicker.visibility = View.GONE
-            }
-        }
-
-
-        val popupWindow =
-            PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
-        popupWindow.isFocusable = true
-
-        submitButton.setOnClickListener {
-            popupWindow.dismiss()
-        }
-
-
-
-        // Set an elevation for the popup window
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            popupWindow.elevation = 10.0F
-        }
-
-
-        // If API level 23 or higher then execute the code
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            // Create a new slide animation for popup window enter transition
-            val slideIn = Slide()
-            slideIn.slideEdge = Gravity.TOP
-            popupWindow.enterTransition = slideIn
-
-            // Slide animation for popup window exit transition
-            val slideOut = Slide()
-            slideOut.slideEdge = Gravity.RIGHT
-            popupWindow.exitTransition = slideOut
-
-        }
-
-        popupWindow.showAtLocation(popupView, Gravity.CENTER,0,0)
-
     }
 
 }
