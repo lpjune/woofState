@@ -11,7 +11,7 @@ This app utilizes the following:
 ### Where to put API keys:
 In the ```local.properties``` file add
 ```
-googleMaps_api_key=<insert Google Maps API key>
+GOOGLEMAPS_APIKEY=<insert Google Maps API key>
 ```
 
 ## License

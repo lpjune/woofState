@@ -1,24 +1,31 @@
 package com.example.hackgsu19.view.ui.main
 
 import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.hackgsu19.OrgModel
+import com.example.hackgsu19.R
+import com.example.hackgsu19.api.OrgClient
+import com.example.hackgsu19.api.Token
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import android.content.pm.PackageManager
-import android.widget.Toast
-import com.example.hackgsu19.OrgModel
-import com.example.hackgsu19.R
-import com.example.hackgsu19.api.OrgClient
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.JsonHttpResponseHandler
 import cz.msebera.android.httpclient.Header
+import kotlinx.android.synthetic.main.fragment_map.*
 import org.json.JSONObject
 
 
@@ -51,6 +58,9 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         mFeedFAB.setOnClickListener {
             (activity as MainActivity).switchFragment(0)
         }
+        val tokenClass = Token(this.requireContext())
+        tokenClass.requestAccessToken(this::fetchOrgs)
+        fetchOrgs()
         return rootView
     }
 
@@ -91,14 +101,34 @@ class MapFragment:  Fragment(), OnMapReadyCallback{
         client.getOrgs(object: JsonHttpResponseHandler(){
             override fun onSuccess(
                 statusCode: Int,
-                headers: Array<out cz.msebera.android.httpclient.Header>?,
+                headers: Array<out Header>?,
                 response: JSONObject?
             ) {
                 val items = response?.getJSONArray("organizations")
                 if (items != null) {
                     val orgs = OrgModel.fromJSON(items)
+                    val addressList = mutableListOf<Address>()
+                    Log.i("Assert", orgs.toString())
+                    for(org in orgs) {
+                        val locationName = org.name
+                        val gc = Geocoder(context)
+                        addressList += gc.getFromLocationName(locationName, 5)
+                        Log.e("Information", addressList.toString())
+                    }
+                    var latLngs = arrayListOf<LatLng>()
+                    for(address in addressList) {
+                        var latlng = LatLng(address.latitude, address.longitude)
+                        mMap.addMarker(MarkerOptions().position(latlng))
+                        latLngs.add(latlng)
+                    }
+                    var builder = LatLngBounds.Builder();
+                    for(pos in latLngs) {
+                        builder.include(pos)
+                    }
+                    var bounds: LatLngBounds = builder.build()
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 20))
                 }
-                Toast.makeText(context,items?.toString(), Toast.LENGTH_LONG).show()
+                Toast.makeText(context, items?.length().toString().plus(" items loaded"), Toast.LENGTH_LONG).show()
                 print(items)
                 super.onSuccess(statusCode, headers, response)
             }

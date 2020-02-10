@@ -49,7 +49,6 @@
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Columbus Dog Shelter"
                 android:textColor="@color/tabColor"
                 android:id="@+id/dog_shelter_name"
                 app:layout_constraintStart_toStartOf="parent"
